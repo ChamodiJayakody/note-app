@@ -4,6 +4,7 @@ import CreateNote from "./CreateNote";
 import { useLocation } from "react-router-dom";
 import Users from "./Users";
 import Settings from "./Settings";
+import Dashboard from "./Dashboard";
 
 export default function Notes() {
   const location = useLocation();
@@ -16,12 +17,12 @@ export default function Notes() {
     }
   }, [location.search]);
   return (
-    <div className="flex min-h-screen">
+    <div className="sm:flex min-h-screen">
       <div>
         <SideBar />
       </div>
       {tab=== "new-note" && <CreateNote />}
-      {tab=== "dashboard" && <Dashboard />}
+      {tab=== "dashboard" && < Dashboard/>}
       {tab=== "users" && <Users />}
       {tab=== "settings" && <Settings />}
       

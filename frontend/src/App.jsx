@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import SignUp from "./pages/SignUp";
 import CreateNote from "./pages/CreateNote";
 import SideBar from "./pages/SideBar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/create-note" element={<CreateNote />} />
         <Route path="/sidebar" element={<SideBar />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </BrowserRouter>

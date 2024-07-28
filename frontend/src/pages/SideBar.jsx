@@ -26,10 +26,14 @@ export default function SideBar() {
 
   return (
     <Sidebar aria-label="Default sidebar example">
-      <Sidebar.Items className=" text-gray-700">
-        <Sidebar.ItemGroup>
+      <Sidebar.Items>
+        <Sidebar.ItemGroup className="hover:icon-white">
           <Link to="/notes?tab=new-note">
-            <Sidebar.Item href="#" icon={HiPlus}>
+            <Sidebar.Item
+              href="#"
+              icon={HiPlus}
+              className="my-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
+            >
               Create New
             </Sidebar.Item>
           </Link>
@@ -40,32 +44,29 @@ export default function SideBar() {
               icon={HiViewBoards}
               label="Pro"
               labelColor="dark"
+              className="mb-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
             >
               Dashboard
             </Sidebar.Item>
           </Link>
 
           <Link to="/notes?tab=users">
-            <Sidebar.Item href="#" icon={HiUser}>
+            <Sidebar.Item
+              href="#"
+              icon={HiUser}
+              className="mb-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+            >
               Users
             </Sidebar.Item>
           </Link>
 
           <Link to="/notes?tab=settings">
-            <Sidebar.Item href="#" icon={HiAdjustments}>
+            <Sidebar.Item
+              href="#"
+              icon={HiAdjustments}
+              className="mb-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+            >
               Settings
-            </Sidebar.Item>
-          </Link>
-
-          <Link to="/notes?tab=signin">
-            <Sidebar.Item href="#" icon={HiArrowSmRight}>
-              Sign In
-            </Sidebar.Item>
-          </Link>
-
-          <Link to="/notes?tab=signup">
-            <Sidebar.Item href="#" icon={HiTable}>
-              Sign Up
             </Sidebar.Item>
           </Link>
         </Sidebar.ItemGroup>

@@ -1,4 +1,4 @@
-import { Button, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import React from "react";
 import img3 from "../assets/background.png";
 import { Link } from "react-router-dom";
@@ -27,7 +27,12 @@ export default function SignUp() {
           <div className="text-center">
             Already have an Account?<div>Sign in</div>
           </div>
+          <div className="flex items-center gap-2">
+          <Checkbox id="remember" />
+          <Label htmlFor="remember">Remember me</Label>
+        </div>
           <Link to="/">
+          <Button type="submit" className="bg-red-500">Submit</Button>
             <Button className="bg-red-500 p-2 ml-16 mt-10 hover:bg-green-600 ring-0 ring-transparent">
               Create Account
             </Button>
