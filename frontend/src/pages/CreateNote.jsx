@@ -8,7 +8,7 @@ export default function CreateNote() {
   const [value, setValue] = useState('');
   return (
     <div className="flex mt-10 mx-auto w-full min-w-screen">
-      <div className="  bg-teal-300  shadow-2xl rounded-3xl p-5 mx-5 md:10 lg:mx-40 w-full h-80">
+      <div className="  bg-yellow-200  shadow-2xl rounded-3xl p-5 mx-5 md:10 lg:mx-40 w-full h-80">
         <div >
           <form  >
             <div className="">

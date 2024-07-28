@@ -32,7 +32,7 @@ export default function SideBar() {
             <Sidebar.Item
               href="#"
               icon={HiPlus}
-              className="my-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
+              className="my-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
             >
               Create New
             </Sidebar.Item>
@@ -44,7 +44,7 @@ export default function SideBar() {
               icon={HiViewBoards}
               label="Pro"
               labelColor="dark"
-              className="mb-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+              className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
             >
               Dashboard
             </Sidebar.Item>
@@ -54,7 +54,7 @@ export default function SideBar() {
             <Sidebar.Item
               href="#"
               icon={HiUser}
-              className="mb-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+              className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
             >
               Users
             </Sidebar.Item>
@@ -64,7 +64,7 @@ export default function SideBar() {
             <Sidebar.Item
               href="#"
               icon={HiAdjustments}
-              className="mb-4 text-lg hover:bg-green-400 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+              className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
             >
               Settings
             </Sidebar.Item>

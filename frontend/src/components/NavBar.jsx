@@ -119,10 +119,10 @@ export default function NavBar() {
       </div>
 
       <Navbar.Collapse >
-        <Navbar.Link href="/" className="text-xl">
+        <Navbar.Link href="/" className="text-xl ">
           Home
         </Navbar.Link>
-        <Navbar.Link href="/notes" className="text-xl">
+        <Navbar.Link href="/notes?tab=notes" className="text-xl">
           Notes
         </Navbar.Link>
         <Navbar.Link href="/sign-up" className="text-xl">

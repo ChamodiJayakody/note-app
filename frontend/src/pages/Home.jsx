@@ -13,8 +13,8 @@ export default function Home() {
             <span className="font-semibold">Management App</span>{" "}
           </h1>
           <p className="text-xl mt-10 ml-16 text-gray-500">Simplify your docket management. Stay organized, productive, and on top of your tasks with Write!</p>
-          <Link to="/notes">
-            <Button className="bg-red-500 p-2 ml-16 mt-10 hover:bg-green-600 ring-0 ring-transparent">
+          <Link to="/notes?tab=notes">
+            <Button className="bg-teal-600 text-2xl p-2 ml-16 mt-10 hover:bg-red-800 ring-0 ring-transparent">
               Get Started
             </Button>
           </Link>

@@ -6,6 +6,8 @@ import Users from "./Users";
 import Settings from "./Settings";
 import Dashboard from "./Dashboard";
 
+import Note from "./Note";
+
 export default function Notes() {
   const location = useLocation();
   const [tab, setTab] = useState("");
@@ -21,12 +23,12 @@ export default function Notes() {
       <div>
         <SideBar />
       </div>
-      {tab=== "new-note" && <CreateNote />}
-      {tab=== "dashboard" && < Dashboard/>}
-      {tab=== "users" && <Users />}
-      {tab=== "settings" && <Settings />}
-      
-      
+
+      {tab === "new-note" && <CreateNote />}
+      {tab === "dashboard" && <Dashboard />}
+      {tab === "users" && <Users />}
+      {tab === "settings" && <Settings />}
+      {tab === "notes" && <Note />}
     </div>
   );
 }
