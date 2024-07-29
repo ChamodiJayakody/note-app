@@ -5,21 +5,34 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {" "}
-      <div className="flex">
+      <img
+        src={img1}
+        alt="Background Image"
+        className="absolute inset-0 object-cover mt-10 h-screen ml-72"
+      />
+
+      <div className="absolute ">
         <div>
-          <h1 className="text-6xl pt-10 ml-16  text-gray-600">
-            <span className="font-bold">Docket</span>{" "}
-            <span className="font-semibold">Management App</span>{" "}
+          <h1 className="text-6xl  pt-10 ml-16 text-gray-700 ">
+            <span className="font-bold">Note</span>
           </h1>
-          <p className="text-xl mt-10 ml-16 text-gray-500">Simplify your docket management. Stay organized, productive, and on top of your tasks with Write!</p>
-          <Link to="/notes?tab=notes">
-            <Button className="bg-teal-600 text-2xl p-2 ml-16 mt-10 hover:bg-red-800 ring-0 ring-transparent">
-              Get Started
-            </Button>
-          </Link>
         </div>
-        <img src={img1} className="w-3/6 ml-20 mr-10 mt-10 rounded-3xl hover:shadow-xl" />
+        <div>
+          <h1 className="text-6xl pt-4 ml-16  text-gray-700 ">
+            <span className="font-semibold">Making App</span>
+          </h1>
+        </div>
+        <p className="text-2xl font-semibold mt-14 ml-16 text-gray-600">
+          Capture your ideas quickly and easily.
+        </p>
+        <p className="text-2xl font-semibold mt-0 ml-16 text-gray-600">
+          Keep your thoughts organized!
+        </p>
+        <Link to="/notes?tab=notes">
+          <Button className="bg-teal-600 hover:bg-red-800 text-2xl p-2 ml-16 mt-20  ring-0 ring-transparent">
+            Get Started
+          </Button>
+        </Link>
       </div>
     </div>
   );
