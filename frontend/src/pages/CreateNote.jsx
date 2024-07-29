@@ -20,7 +20,7 @@ export default function CreateNote() {
               
               <ReactQuill theme="snow" value={value} onChange={setValue} id="content" className="bg-white" />
             </div>
-            <Button className="bg-red-500 mt-5">Submit</Button>
+            <Button className=" hover:bg-red-800 bg-teal-600 mt-5 text-2xl ring-0 ring-transparent">Submit</Button>
           </form>
         </div>
       </div>

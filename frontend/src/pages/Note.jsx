@@ -4,7 +4,7 @@ import img5 from "../assets/notes.png";
 function Note() {
   return (
     
-      <div className="flex hover:shadow-xl  rounded-3xl ml-20 mr-10 mt-10">
+      <div className="min-h-96 flex hover:shadow-xl  rounded-3xl ml-20 mr-10 mt-10">
         <div className=" bg-pink-100 rounded-3xl pr-10">
           <h1 className="text-3xl pt-10 ml-10  text-gray-600">
           

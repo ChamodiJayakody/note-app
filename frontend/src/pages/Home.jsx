@@ -4,19 +4,35 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen">
-      <img src={img1} alt="Background Image" className="absolute inset-0 object-cover w-screen h-screen" />
-      <div className="absolute inset-0 flex items-center justify-center text-center">
+    <div className="min-h-screen">
+      <img
+        src={img1}
+        alt="Background Image"
+        className="absolute inset-0 object-cover mt-10 h-screen ml-72"
+      />
+
+      <div className="absolute ">
         <div>
-          <h1 className="text-6xl font-bold text-gray-800">Docket</h1>
-          <h2 className="text-4xl font-semibold text-gray-600">Management App</h2>
-          <p className="text-xl mt-4 text-gray-500">Simplify your docket management. Stay organized, productive, and on top of your tasks with Write!</p>
-          <Link to="/notes?tab=notes">
-            <Button className="bg-teal-600 text-2xl p-2 mt-6 hover:bg-red-800 ring-0 ring-transparent">
-              Get Started
-            </Button>
-          </Link>
+          <h1 className="text-6xl  pt-10 ml-16 text-gray-700 ">
+            <span className="font-bold">Note</span>
+          </h1>
         </div>
+        <div>
+          <h1 className="text-6xl pt-4 ml-16  text-gray-700 ">
+            <span className="font-semibold">Making App</span>
+          </h1>
+        </div>
+        <p className="text-2xl font-semibold mt-14 ml-16 text-gray-600">
+          Capture your ideas quickly and easily.
+        </p>
+        <p className="text-2xl font-semibold mt-0 ml-16 text-gray-600">
+          Keep your thoughts organized!
+        </p>
+        <Link to="/notes?tab=notes">
+          <Button className="bg-teal-600 text-2xl p-2 ml-16 mt-20 hover:bg-red-800 ring-0 ring-transparent">
+            Get Started
+          </Button>
+        </Link>
       </div>
     </div>
   );
