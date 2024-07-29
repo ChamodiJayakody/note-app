@@ -4,22 +4,19 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      {" "}
-      <div className="flex">
+    <div className="relative min-h-screen">
+      <img src={img1} alt="Background Image" className="absolute inset-0 object-cover w-screen h-screen" />
+      <div className="absolute inset-0 flex items-center justify-center text-center">
         <div>
-          <h1 className="text-6xl pt-10 ml-16  text-gray-600">
-            <span className="font-bold">Docket</span>{" "}
-            <span className="font-semibold">Management App</span>{" "}
-          </h1>
-          <p className="text-xl mt-10 ml-16 text-gray-500">Simplify your docket management. Stay organized, productive, and on top of your tasks with Write!</p>
+          <h1 className="text-6xl font-bold text-gray-800">Docket</h1>
+          <h2 className="text-4xl font-semibold text-gray-600">Management App</h2>
+          <p className="text-xl mt-4 text-gray-500">Simplify your docket management. Stay organized, productive, and on top of your tasks with Write!</p>
           <Link to="/notes?tab=notes">
-            <Button className="bg-teal-600 text-2xl p-2 ml-16 mt-10 hover:bg-red-800 ring-0 ring-transparent">
+            <Button className="bg-teal-600 text-2xl p-2 mt-6 hover:bg-red-800 ring-0 ring-transparent">
               Get Started
             </Button>
           </Link>
         </div>
-        <img src={img1} className="w-3/6 ml-20 mr-10 mt-10 rounded-3xl hover:shadow-xl" />
       </div>
     </div>
   );
