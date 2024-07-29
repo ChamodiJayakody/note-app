@@ -29,7 +29,7 @@ export default function Home() {
           Keep your thoughts organized!
         </p>
         <Link to="/notes?tab=notes">
-          <Button className="bg-teal-600 text-2xl p-2 ml-16 mt-20 hover:bg-red-800 ring-0 ring-transparent">
+          <Button className="bg-teal-600 hover:bg-red-800 text-2xl p-2 ml-16 mt-20  ring-0 ring-transparent">
             Get Started
           </Button>
         </Link>
