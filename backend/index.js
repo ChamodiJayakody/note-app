@@ -1,18 +1,26 @@
 import express from "express";
 import cors from "cors";
-import { connection } from "./db.js";
+
 import dotenv from "dotenv";
-import noteRouter from "./routes/note.route.js"
+
+import mongoose from "mongoose";
+import userModel from "./models/user.model.js"
 
 dotenv.config();
-
+mongoose.connect("mongodb+srv://chishedu:mJXZ2pHMqVWKY6qh@cluster0.c4yclu7.mongodb.net/user")
 const port = process.env.PORT;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/note", noteRouter)
+
+
+app.post('/sign-up',(req,res)=> {
+   userModel.create(req,body)
+   .then(users=>res.json(users))
+   .catch(err=>res.json(err))
+})
 
 app.get("/", (req, res) => {
   res.send({
@@ -20,13 +28,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(port, async () => {
-  try {
-    await connection;
-    console.log("database is connected");
-  } catch (error) {
-    console.log("error connecting to the database");
-  }
-
-  console.log("Server is running on port number", port);
+app.listen(port, () => {
+  console.log("server is running")
 });

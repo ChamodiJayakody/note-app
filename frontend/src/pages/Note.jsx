@@ -22,14 +22,19 @@ function Note() {
         <p className="text-lg mt-6 ml-10 text-gray-700">
           📝 Note-taking can be enjoyable! Let's make it an adventure.
         </p>
-        <div className="mt-7">
-          <div className="text-center text-gray-600 font-semibold text-lg">
-            Already have an Account?<div className="hover:text-teal-400 text-xl">Sign in</div>
+        <div>
+          <div className="text-center text-gray-600 font-semibold text-lg mt-5">
+            Already have an Account?
+            <Link to="/sign-in">
+              <div className="text-pink-800 hover:text-pink-500 text-xl mt-2 ">
+                Sign in
+              </div>
+            </Link>
           </div>
 
           <div className="flex  justify-center">
             <Link to="/sign-up">
-              <Button className="bg-teal-600 hover:bg-red-800 m-5 mb-10   ring-0 ring-transparent">
+              <Button className="bg-pink-800 hover:bg-pink-500 m-5 mb-10  ring-0 ring-transparent">
                 Create Account
               </Button>
             </Link>
