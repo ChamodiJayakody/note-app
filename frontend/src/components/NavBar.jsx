@@ -1,11 +1,12 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import React from "react";
 import img2 from "../assets/write.png";
-import img5 from "../assets/user.png"
+import img5 from "../assets/user.png";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <Navbar fluid rounded className="sticky top-0" style={{zIndex:1000}}>
+    <Navbar fluid rounded className="sticky top-0" style={{ zIndex: 1000 }}>
       <Navbar.Brand href="http://localhost:5173/">
         <img
           src={img2}
@@ -91,34 +92,31 @@ export default function NavBar() {
         </button>
       </div>
 
-      <div className="flex md:order-2">
+      <div className="flex md:order-2 ">
         <Dropdown
+          className="bg-gray-200 bg-opacity-60 rounded-xl shadow-2xl border-2 border-gray-200"
           arrowIcon={false}
           inline
-          label={
-            <Avatar
-              alt="User settings"
-              img={img5}
-              rounded
-            />
-          }
+          label={<Avatar alt="User settings" img={img5} rounded />}
         >
           <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block truncate text-sm font-medium">
+            <span className="block text-sm font-medium">Bonnie Green</span>
+            <span className="block truncate text-sm font-normal">
               name@flowbite.com
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>My Notes</Dropdown.Item>
+          <Dropdown.Item className="font-medium">Dashboard</Dropdown.Item>
+          <Dropdown.Item className="font-medium"> Settings</Dropdown.Item>
+          <Dropdown.Item className="font-medium">My Notes</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Link to="/sign-out">
+            <Dropdown.Item className="font-medium">Sign out</Dropdown.Item>
+          </Link>
         </Dropdown>
         <Navbar.Toggle />
       </div>
 
-      <Navbar.Collapse >
+      <Navbar.Collapse>
         <Navbar.Link href="/" className="text-xl ">
           Home
         </Navbar.Link>
