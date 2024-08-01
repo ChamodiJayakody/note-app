@@ -94,7 +94,7 @@ export default function NavBar() {
 
       <div className="flex md:order-2 ">
         <Dropdown
-          className="bg-gray-200 bg-opacity-60 rounded-xl shadow-2xl border-2 border-gray-200"
+          className="bg-gray-200 bg-opacity-50 rounded-xl shadow-2xl border-2 border-gray-200"
           arrowIcon={false}
           inline
           label={<Avatar alt="User settings" img={img5} rounded />}

@@ -11,6 +11,7 @@ import SideBar from "./pages/SideBar";
 import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
