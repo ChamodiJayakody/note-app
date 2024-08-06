@@ -28,7 +28,7 @@ const PasswordInput = ({ value, onChange, placeholder }) => {
       ) : (
         <FaRegEyeSlash
           size={22}
-          className="text-gray-400 cursor-pointer absolute right-3 top-3"
+          className="text-gray-500 hover:text-gray-800 cursor-pointer absolute right-3 top-3"
           onClick={() => toggleShowPassword()}
         />
       )}
