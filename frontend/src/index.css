@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .icon-btn {
+    @apply text-xl text-gray-500 cursor-pointer hover:text-gray-800;
+  }
+
+  .input-label {
+    @apply text-xs text-gray-800;
+  }
+
+  .btn-general {
+    @apply w-full text-sm bg-teal-800 hover:bg-teal-500 cursor-pointer  text-gray-200 p-2 rounded-xl my-1;
+  }
+}
