@@ -23,7 +23,7 @@ function Note() {
           📝 Note-taking can be enjoyable! Let's make it an adventure.
         </p>
         <div>
-          <div className="text-center text-gray-600 font-semibold text-lg mt-5">
+          <div className="text-center text-gray-600 font-medium text-lg mt-5">
             Already have an Account?
             <Link to="/sign-in">
               <div className="text-pink-800 hover:text-pink-500 text-xl mt-2 ">

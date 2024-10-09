@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 
 import { Toast } from "flowbite-react";
 
-export default function SignOut() {
+const SignOut=({onSignOut})=>{
+  
+
+
   return (
     <div className="min-h-screen flex mt-32 justify-center">
       <div className=" w-3/12 my-3 relative ">
@@ -23,7 +26,7 @@ export default function SignOut() {
               <Button size="xs">Naah, Just Kidding</Button>
             </div>
             <div className="w-auto">
-              <Button color="light" size="xs">
+              <Button color="light" size="xs" onClick={onSignOut}>
                 Yes, Sign Me Out
               </Button>
             </div>
@@ -42,4 +45,7 @@ export default function SignOut() {
       </div>
     </div>
   );
+
 }
+  
+export default SignOut;
