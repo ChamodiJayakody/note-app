@@ -16,6 +16,7 @@
     "@tsparticles/all": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "axios": "^1.7.3",
+    "bcryptjs": "^2.4.3",
     "crypto-js": "^4.2.0",
     "emailjs": "^4.0.3",
     "firebase": "^10.12.3",

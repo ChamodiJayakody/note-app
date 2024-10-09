@@ -19,7 +19,13 @@ module.exports = {
         rotate: "rotate 2s linear infinite",
       },
     },
-    colors: {},
+    colors: {
+      pink_dark:"#99154b",
+      pink_light:"#e74694",
+      text_dark:"#1f2937",
+      text_light:"#4b5563",
+      text_medium:"#374151"
+    },
   },
   plugins: [require("flowbite/plugin"), require("tailwind-scrollbar")],
 };

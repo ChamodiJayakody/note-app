@@ -1,134 +1,139 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import React from "react";
-import { useState } from "react";
+import { Button, Checkbox, Label, Spinner, TextInput } from "flowbite-react";
+import React, { useState } from "react";
 import img6 from "../assets/bg.png";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-import PasswordInput from "../components/PasswordInput";
 import { validateemail } from "../utils/validateemail";
 
 export default function SignUp() {
-  const [firstname, setFname] = useState();
-  const [lastname, setLname] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [cpassword, setCpassword] = useState();
+  const [formdata, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmpassword: ""
+  });
+
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formdata, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(formdata)
+    // setError("");
 
-    if (!firstname) {
-      setError("Please enter your first name");
+    if (
+      !formdata.firstname ||
+      !formdata.lastname ||
+      !formdata.email ||
+      !formdata.password ||
+      !formdata.confirmpassword
+    ) {
+      setError("Please fill out all fields.");
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+    //console.log(formdata);
+
+    if (formdata.password !== formdata.confirmpassword) {
+      setError("Passwords do not match.");
+      setTimeout(() => setError(null), 3000);
       return;
     }
 
-    if (!lastname) {
-      setError("Please enter your last name");
-      return;
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch("/api/auth/sign-up", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formdata),
+      });
+
+      const result = await res.json();
+      if (!res.ok) {
+        throw new Error(result.message || "Failed to sign up"); // Add statusText for more info
+      }
+      setLoading(false);
+      if (res.ok) {
+        navigate("/sign-in");
+      }
+
+      // ... navigate on successful signup
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
     }
-
-    if (!validateemail(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    if (!password) {
-      setError("Please enter the password");
-      return;
-    }
-
-    if (!cpassword) {
-      setError("Please confirm the password");
-      return;
-    }
-
-    if (password!==cpassword) {
-      setError("Passwords do not match. Please try again.");
-      return;
-    }
-
-    setError("");
-
-    axios
-      .post("http://localhost:3001/sign-up", {
-        firstname,
-        lastname,
-        email,
-        password,
-        cpassword,
-      })
-      .then((result) => console.log(result), navigate("/sign-in"))
-      .catch((err) => console.log(err));
   };
 
   return (
-    <div className="min-h-screen flex justify-center ">
-      <div className=" w-3/12 my-3 relative ">
+    <div className="min-h-screen flex justify-center">
+      <div className="md:w-5/12 my-3 relative">
         <div>
           <div className="bg-gray-300 bg-opacity-50 rounded-3xl shadow-2xl border-2 border-gray-200">
-            <h1 className="pt-3 text-2xl text-center text-gray-80 font-semibold ">
+            <h1 className="pt-3 text-2xl text-center text-gray-80 font-semibold">
               Sign Up
             </h1>
 
             <form onSubmit={handleSubmit}>
               <div className="mx-7 mt-4 hover:shadow-2xl">
                 <TextInput
-                  name="firstname"
-                  autoComplete="off"
                   type="text"
                   placeholder="First Name"
-                  className="form-control"
-                  onChange={(e) => setFname(e.target.value)}
+                  id="firstname"
+                  name="firstname"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="mx-7 mt-3 hover:shadow-2xl">
                 <TextInput
-                  onSubmit={PasswordInput}
-                  name="lastname"
-                  autoComplete="off"
                   type="text"
                   placeholder="Last Name"
-                  className="form-control "
-                  onChange={(e) => setLname(e.target.value)}
+                  id="lastname"
+                  name="lastname"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="mx-7 mt-3 hover:shadow-2xl">
                 <TextInput
+                  type="email"
+                  id="email"
                   name="email"
-                  autoComplete="off"
-                  type="text"
                   placeholder="Email Address"
-                  className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div className=" mx-7 mt-3 hover:shadow-2xl">
-                <PasswordInput
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="mx-7 mt-3 hover:shadow-2xl">
-                <PasswordInput
-                  value={cpassword}
-                  onChange={(e) => setCpassword(e.target.value)}
+                <TextInput
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="mx-7 mt-3 hover:shadow-2xl">
+                <TextInput
+                  type="password"
+                  id="confirmpassword"
+                  name="confirmpassword"
                   placeholder="Confirm Password"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="shadow-none mx-7 mt-1 px-2 bg-gray-100 bg-opacity-70 rounded-lg">
                 {error && (
                   <p className="text-red-500 text-xs pb-1 font-semibold">
-                    {" "}
                     {error}
                   </p>
                 )}
@@ -137,9 +142,17 @@ export default function SignUp() {
               <div className="flex justify-center">
                 <Button
                   type="submit"
-                  className=" bg-pink-800 hover:bg-pink-500 mt-4  ring-0 ring-transparent "
+                  disabled={loading}
+                  className="bg-pink-800 hover:bg-pink-500 mt-4 ring-0 ring-transparent"
                 >
-                  Sign Up
+                  {loading ? (
+                    <>
+                      <Spinner size="sm" />
+                      <span className="pl-3">Loading...</span>
+                    </>
+                  ) : (
+                    "Sign Up"
+                  )}
                 </Button>
               </div>
             </form>
@@ -154,7 +167,7 @@ export default function SignUp() {
               </Link>
             </p>
 
-            <div className="flex gap-2 justify-center mt-2  items-center">
+            <div className="flex gap-2 justify-center mt-2 items-center">
               <Checkbox id="remember" className="text-gray-800 mb-4" />
               <Label htmlFor="remember" className="text-gray-800 mb-4">
                 Remember me

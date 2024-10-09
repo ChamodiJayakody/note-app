@@ -13,19 +13,19 @@ export default function Home() {
 
       <div className="absolute ">
         <div>
-          <h1 className="text-6xl  pt-10 ml-16 text-gray-700 ">
-            <span className="font-bold">Note</span>
+          <h1 className="text-6xl  pt-10 ml-16 text-text_medium ">
+            <span className="font-semibold">Note</span>
           </h1>
         </div>
         <div>
-          <h1 className="text-6xl pt-4 ml-16  text-gray-700 ">
-            <span className="font-semibold">Making App</span>
+          <h1 className="text-6xl pt-4 ml-16  text-text_light ">
+            <span className="font-medium">Making App</span>
           </h1>
         </div>
-        <p className="text-2xl font-semibold mt-14 ml-16 text-gray-600">
+        <p className="text-2xl font-normal mt-14 ml-16 text-text_light">
           Capture your ideas quickly and easily.
         </p>
-        <p className="text-2xl font-semibold mt-0 ml-16 text-gray-600">
+        <p className="text-2xl font-normal mt-0 ml-16 text-text_light">
           Keep your thoughts organized!
         </p>
         <Link to="/notes?tab=notes">

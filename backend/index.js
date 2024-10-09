@@ -1,50 +1,61 @@
 import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+import userRoutes from "./routes/user.route.js";
+import authRoutes from "./routes/auth.route.js";
+import postRoutes from "./routes/post.route.js";
+import cookieParser from "cookie-parser";
+import path from "path";
 import bodyParser from "body-parser";
-import userModel from "./models/user.model.js";
 
 dotenv.config();
-mongoose.connect(
-  'mongodb://localhost:27017/users'
-);
 
-const port = process.env.PORT;
+// console.log('Loaded Environment Variables:');
+// console.log('MONGO:', process.env.MONGO);
+// console.log('JWT_SECRET:', process.env.JWT_SECRET);
+
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => {
+    console.log("MongoDb is connected!");
+  })
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });
+
+const __dirname = path.resolve();
+
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
-app.post("/sign-in",(req,res)=>{
-  const {email,password}=req.body;
-  userModel.findOne({email:email})
-  .then(user=>{
-    if(user){
-      if(user.password===password){
-        res.json("Success")
-      } else{
-        res.json("the password is incorrect")
-      }
-    }else{
-      res.json("No record existed")
-    }
-  })
-})
-
-app.post("/sign-up", (req, res) => {
-  userModel
-    .create(req.body)
-    .then((users) => res.json(users))
-    .catch((err) => res.json(err));
+app.listen(3000, () => {
+  console.log("Server is running on port 3000!");
 });
 
-// app.get("/", (req, res) => {
-//   res.send({
-//     message: "api is working now",
-//   });
-// });
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
 
-app.listen(port, () => {
-  console.log("server is running");
+//for payhere payment gateway
+app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, "../refaa-client/dist")));
+
+app.use((err, req, res, next) => {
+  console.error("Error occurred:", err);
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../refaa-client/dist/index.html"));
 });

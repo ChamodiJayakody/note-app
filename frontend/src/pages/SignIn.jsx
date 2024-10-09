@@ -3,9 +3,7 @@ import React from "react";
 import { useState } from "react";
 import img6 from "../assets/bg.png";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import PasswordInput from "../components/PasswordInput";
 import { validateemail } from "../utils/validateemail";
 
 export default function SignIn() {
@@ -14,7 +12,7 @@ export default function SignIn() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateemail(email)) {
@@ -29,15 +27,28 @@ export default function SignIn() {
 
     setError("");
 
-    axios
-      .post("http://localhost:3001/sign-in", { email, password })
-      .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
-          navigate("/");
-        }
-      })
-      .catch((err) => console.log(err));
+    try {
+      const response = await fetch("/api/auth/sign-in", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.message || "Failed to sign in");
+      }
+
+      const result = await response.json();
+      console.log("Sign-in Success:", result);
+      if (result) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Sign-in Error:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -62,12 +73,16 @@ export default function SignIn() {
               </div>
 
               <div className="mx-7 mt-3 hover:shadow-2xl">
-                <PasswordInput
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                <TextInput
+                  name="password"
+                  autoComplete="off"
+                  type="password"
                   placeholder="Password"
+                  className="form-control"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+
               <div className="shadow-none mx-7 mt-1 px-2 bg-gray-100 bg-opacity-70 rounded-lg">
                 {error && (
                   <p className="text-red-500 text-xs pb-1 font-semibold">
