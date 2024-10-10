@@ -11,6 +11,7 @@ import SideBar from "./pages/SideBar";
 import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
+import Note from "./pages/Note";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/notes" element={<Notes />} />
+        <Route path="/note" element={<Note />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-out" element={<SignOut />} />

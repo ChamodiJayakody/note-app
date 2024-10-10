@@ -71,7 +71,7 @@ export const signout = (req, res, next) => {
     res
       .clearCookie("access_token")
       .status(200)
-      .json("User has been signed out");
+      .json( "User has been signed out");
   } catch (error) {
     next(error);
   }
@@ -152,3 +152,4 @@ export const changeIsMemberStatus = async (req, res, next) => {
     next(error);
   }
 };
+

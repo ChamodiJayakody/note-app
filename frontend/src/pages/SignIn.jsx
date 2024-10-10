@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import img6 from "../assets/bg.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,8 @@ export default function SignIn() {
       const result = await response.json();
       console.log("Sign-in Success:", result);
       if (result) {
-        navigate("/");
+        localStorage.setItem("user", JSON.stringify(result)); // Store user data in local storage
+        navigate("/notes?tab=notes");
       }
     } catch (err) {
       console.error("Sign-in Error:", err);
