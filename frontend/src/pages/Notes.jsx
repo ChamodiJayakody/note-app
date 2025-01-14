@@ -5,8 +5,9 @@ import { useLocation } from "react-router-dom";
 import Users from "./Users";
 import Settings from "./Settings";
 import Dashboard from "./Dashboard";
-
+import { useNavigate } from "react-router-dom";
 import Note from "./Note";
+
 
 export default function Notes() {
   const location = useLocation();
@@ -20,6 +21,7 @@ export default function Notes() {
   }, [location.search]);
   return (
     <div className="sm:flex min-h-screen">
+      
       <div>
         <SideBar />
       </div>

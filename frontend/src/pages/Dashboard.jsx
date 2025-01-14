@@ -1,7 +1,210 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import NoteCard from "../components/NoteCard";
+import { MdAdd } from "react-icons/md";
+import Modal from "react-modal";
+import NewNote from "../components/NewNote";
 
-export default function Dashboard() {
+const Dashboard = () => {
+  const [openCreateModal, setOpenCreateModal] = useState({
+    isShown: false,
+    type: "add",
+    data: null,
+  });
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
+  const fetchNotes = async () => {
+    try {
+      console.log("Fetching notes...");
+      const response = await fetch("/api/note/get", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Fetched notes:", data);
+        setNotes(data);
+      } else {
+        console.error("Failed to fetch notes");
+      }
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
+  };
+
+  const handleDeleteNote = async (id) => {
+    try {
+      const response = await fetch(`/api/note/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.ok) {
+        setNotes(notes.filter((note) => note._id !== id));
+      } else {
+        console.error("Failed to delete note");
+      }
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
+
+  const handlePinNote = async (id) => {
+    try {
+      setNotes((prevNotes) =>
+        prevNotes.map((note) =>
+          note._id === id ? { ...note, isPinned: !note.isPinned } : note
+        )
+      );
+
+      const response = await fetch(`/api/note/pin/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.ok) {
+        const updatedNote = await response.json();
+        setNotes((prevNotes) =>
+          prevNotes.map((note) => (note._id === id ? updatedNote : note))
+        );
+      } else {
+        console.error("Failed to pin note");
+      }
+      setNotes((prevNotes) =>
+        prevNotes.map((note) =>
+          note._id === id ? { ...note, isPinned: !note.isPinned } : note
+        )
+      );
+    } catch (error) {
+      console.error("Error pinning note:", error);
+      setNotes((prevNotes) =>
+        prevNotes.map((note) =>
+          note._id === id ? { ...note, isPinned: !note.isPinned } : note
+        )
+      );
+    }
+  };
+
+  const handleAddNote = async (noteData) => {
+    try {
+      const response = await fetch("/api/note/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(noteData),
+      });
+      if (response.ok) {
+        const newNote = await response.json();
+        setNotes([...notes, newNote]);
+        return true;
+      } else {
+        console.error("Failed to add note");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error adding note:", error);
+      return false;
+    }
+  };
+
+  const handleUpdateNote = async (id, noteData) => {
+    try {
+      const response = await fetch(`/api/note/update/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(noteData),
+      });
+      if (response.ok) {
+        const updatedNote = await response.json();
+        setNotes((prevNotes) =>
+          prevNotes.map((note) => (note._id === id ? updatedNote : note))
+        );
+        return true;
+      } else {
+        console.error("Failed to update note");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error updating note:", error);
+      return false;
+    }
+  };
+
+  const handleSubmit = async (id, noteData) => {
+    console.log("handleSubmit called with:", id, noteData);
+    if (openCreateModal.type === "add") {
+      return await handleAddNote(noteData);
+    } else {
+      return await handleUpdateNote(id, noteData);
+    }
+  };
+
   return (
-    <div>Dashboard</div>
-  )
-}
+    <>
+      <div className="container mx-auto">
+        <div className="ml-5 grid grid-cols-3 gap-4 mt-8">
+          {/* {console.log("Rendering notes:", notes)} */}
+          {notes.map((note) => (
+            <NoteCard
+              key={note._id}
+              title={note.title}
+              date={new Date(note.createdAt).toLocaleDateString()}
+              content={note.content}
+              isPinned={note.isPinned}
+              onEdit={() => {
+                setOpenCreateModal({ isShown: true, type: "edit", data: note });
+              }}
+              onDelete={() => handleDeleteNote(note._id)}
+              onPinNote={() => handlePinNote(note._id)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <button
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-teal-800 hover:bg-teal-500 absolute right-10 bottom-10"
+        onClick={() => {
+          setOpenCreateModal({ isShown: true, type: "add", data: null });
+        }}
+      >
+        <MdAdd className="text-[32px] text-white" />
+      </button>
+
+      <Modal
+        isOpen={openCreateModal.isShown}
+        onRequestClose={() => {
+          setOpenCreateModal({ isShown: false, type: "add", data: null });
+        }}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(19, 85, 80, 0.8)",
+          },
+        }}
+        contentLabel=""
+        className="w-[60%] bg-white p-5 my-28 mx-auto rounded-2xl overflow-scroll"
+      >
+        <NewNote
+          type={openCreateModal.type}
+          noteData={openCreateModal.data}
+          onClose={() => {
+            setOpenCreateModal({ isShown: false, type: "add", data: null });
+          }}
+          onSubmit={handleSubmit}
+        />
+      </Modal>
+    </>
+  );
+};
+
+export default Dashboard;
