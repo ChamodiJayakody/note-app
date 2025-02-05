@@ -59,6 +59,20 @@ export const deleteNote = async (req, res, next) => {
   }
 };
 
+export const pinNote = async (req, res, next) => {
+  try {
+    const note = await Note.findOne({ _id: req.params.noteid, user: req.user.id });
+    if (!note) {
+      return next(errorHandler(404, 'Note not found'));
+    }
+    note.isPinned = !note.isPinned;
+    await note.save();
+    res.status(200).json(note);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateNote = async (req, res, next) => {
   try {
     const updatedNote = await Note.findOneAndUpdate(
@@ -81,16 +95,3 @@ export const updateNote = async (req, res, next) => {
   }
 };
 
-export const pinNote = async (req, res, next) => {
-  try {
-    const note = await Note.findOne({ _id: req.params.noteId, user: req.user.id });
-    if (!note) {
-      return next(errorHandler(404, 'Note not found'));
-    }
-    note.isPinned = !note.isPinned;
-    await note.save();
-    res.status(200).json(note);
-  } catch (error) {
-    next(error);
-  }
-};

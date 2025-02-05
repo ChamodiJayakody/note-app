@@ -1,24 +1,38 @@
 import React from "react";
-import { MdOutlinePushPin, MdCreate, MdDelete } from "react-icons/md";
+import {
+  MdOutlinePushPin,
+  MdCreate,
+  MdDelete,
+  MdPushPin,
+} from "react-icons/md";
 
-const NoteCard = ({ title, date, content, isPinned, onEdit, onDelete, onPinNote, color }) => {
+const NoteCard = ({
+  title,
+  date,
+  content,
+  isPinned,
+  onEdit,
+  onDelete,
+  onPinNote,
+  color,
+}) => {
   return (
-    <div className={`rounded-lg p-4 ${color} hover:shadow-xl transition-all ease-in-out`}>
+    <div
+      className={`rounded-lg p-4 shadow-md ${color} hover:shadow-xl transition-all ease-in-out`}
+    >
       <div className="flex items-center justify-between">
-        <div>
-          <h6 className="text-sm font-medium">{title}</h6>
-          <span className="text-xs text-gray-500">{date}</span>
-        </div>
-
-        <MdOutlinePushPin
-          className={`icon-btn ${isPinned ? "text-gray-800" : "text-gray-500"}`}
+        <h3 className="text-lg font-medium">{title}</h3>
+        <MdPushPin
+          className={`cursor-pointer ${
+            isPinned ? "text-gray-900" : "text-gray-400"
+          }`}
           onClick={onPinNote}
         />
       </div>
+      <p className="text-xs text-gray-500">{date}</p>
+      <p className="text-sm text-gray-700 mt-2">{content?.slice(0, 60)}</p>
 
-      <p className="text-xs text-gray-700 mt-2">{content?.slice(0, 60)}</p>
-
-      <div className="flex items-center justify-between mt-2">
+      <div className="flex items-center justify-end mt-2">
         <div className="flex items-center gap-2">
           <MdCreate
             className="icon-btn hover:text-green-500"
