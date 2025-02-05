@@ -2,7 +2,7 @@ import { Navbar } from "flowbite-react";
 import React, { useState, useEffect } from "react";
 import img2 from "../assets/write.png";
 import Profile from "./Profile";
-import { useNavigate , useSearchParams} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
@@ -29,9 +29,7 @@ const NavBar = ({ toggleSidebar }) => {
       }
     };
 
-    
-
-  const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
@@ -43,7 +41,7 @@ const NavBar = ({ toggleSidebar }) => {
     // Clear the user data and navigate to the sign-in page
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/sign-in");
+    navigate("/");
   };
 
   const handleSearch = () => {
@@ -62,10 +60,12 @@ const NavBar = ({ toggleSidebar }) => {
       style={{ zIndex: 1000 }}
     >
       <div className="flex items-center">
-      {user && (<button className="p-4 focus:outline-none" onClick={toggleSidebar}>
-          <FaBars className="text-gray-800" />
-        </button>)}
-        
+        {user && (
+          <button className="p-4 focus:outline-none" onClick={toggleSidebar}>
+            <FaBars className="text-gray-800" />
+          </button>
+        )}
+
         <Navbar.Brand as={Link} to="/">
           <img
             src={img2}
