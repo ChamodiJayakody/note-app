@@ -43,7 +43,9 @@ const Dashboard = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Fetched notes:", data);
-        setNotes(data);
+
+        const sortedNotes = data.sort((a, b) => b.isPinned - a.isPinned);
+        setNotes(sortedNotes);
       } else if (response.status === 401) {
         navigate("/sign-in");
       } else {
@@ -76,7 +78,7 @@ const Dashboard = () => {
     try {
       const response = await fetch(`/api/note/pin/${noteid}`, {
         method: "PUT",
-        credentials: "include", // Add this line
+        credentials: "include", 
       });
       if (response.ok) {
         const updatedNote = await response.json();
