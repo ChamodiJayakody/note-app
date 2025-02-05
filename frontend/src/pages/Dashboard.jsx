@@ -3,6 +3,8 @@ import NoteCard from "../components/NoteCard";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import NewNote from "../components/NewNote";
+import SearchBar from "../components/SearchBar";
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [openCreateModal, setOpenCreateModal] = useState({
@@ -11,6 +13,19 @@ const Dashboard = () => {
     data: null,
   });
   const [notes, setNotes] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const colors = [
+    "bg-red-200",
+    "bg-green-200",
+    "bg-blue-200",
+    "bg-yellow-200",
+    "bg-purple-200",
+  ];
+
+  const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   useEffect(() => {
     fetchNotes();
@@ -20,14 +35,14 @@ const Dashboard = () => {
     try {
       console.log("Fetching notes...");
       const response = await fetch("/api/note/get", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        credentials: "include",
       });
       if (response.ok) {
         const data = await response.json();
         console.log("Fetched notes:", data);
         setNotes(data);
+      } else if (response.status === 401) {
+        navigate("/sign-in");
       } else {
         console.error("Failed to fetch notes");
       }
@@ -40,9 +55,7 @@ const Dashboard = () => {
     try {
       const response = await fetch(`/api/note/delete/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        credentials: "include", 
       });
       if (response.ok) {
         setNotes(notes.filter((note) => note._id !== id));
@@ -56,17 +69,9 @@ const Dashboard = () => {
 
   const handlePinNote = async (id) => {
     try {
-      setNotes((prevNotes) =>
-        prevNotes.map((note) =>
-          note._id === id ? { ...note, isPinned: !note.isPinned } : note
-        )
-      );
-
       const response = await fetch(`/api/note/pin/${id}`, {
         method: "PUT",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        credentials: "include", // Add this line
       });
       if (response.ok) {
         const updatedNote = await response.json();
@@ -76,39 +81,37 @@ const Dashboard = () => {
       } else {
         console.error("Failed to pin note");
       }
-      setNotes((prevNotes) =>
-        prevNotes.map((note) =>
-          note._id === id ? { ...note, isPinned: !note.isPinned } : note
-        )
-      );
     } catch (error) {
       console.error("Error pinning note:", error);
-      setNotes((prevNotes) =>
-        prevNotes.map((note) =>
-          note._id === id ? { ...note, isPinned: !note.isPinned } : note
-        )
-      );
     }
   };
 
   const handleAddNote = async (noteData) => {
     try {
+      console.log("Attempting to add note:", noteData);
       const response = await fetch("/api/note/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        credentials: "include",
         body: JSON.stringify(noteData),
       });
-      if (response.ok) {
+      if (response.status === 401) {
+        console.log("Unauthorized - redirecting to login");
+        navigate("/sign-in");
+        return false;
+      }
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Server error:", errorData);
+        return false;
+      }
+     
         const newNote = await response.json();
         setNotes([...notes, newNote]);
         return true;
-      } else {
-        console.error("Failed to add note");
-        return false;
-      }
+      
     } catch (error) {
       console.error("Error adding note:", error);
       return false;
@@ -121,8 +124,8 @@ const Dashboard = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        credentials: "include", // Add this line
         body: JSON.stringify(noteData),
       });
       if (response.ok) {
@@ -150,11 +153,24 @@ const Dashboard = () => {
     }
   };
 
+  const handleSearch = () => {
+    // Implement search functionality
+  };
+
+  const onClearSearch = () => {
+    setSearchQuery("");
+  };
+
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container ml-5 mt-8 mx-auto">
+        <SearchBar
+          value={searchQuery}
+          onChange={({ target }) => setSearchQuery(target.value)}
+          handleSearch={handleSearch}
+          onClearSearch={onClearSearch}
+        />
         <div className="ml-5 grid grid-cols-3 gap-4 mt-8">
-          {/* {console.log("Rendering notes:", notes)} */}
           {notes.map((note) => (
             <NoteCard
               key={note._id}
@@ -167,6 +183,7 @@ const Dashboard = () => {
               }}
               onDelete={() => handleDeleteNote(note._id)}
               onPinNote={() => handlePinNote(note._id)}
+              color={getRandomColor()} // Pass the random color as a prop
             />
           ))}
         </div>

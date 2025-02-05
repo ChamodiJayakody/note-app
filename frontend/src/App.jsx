@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
@@ -13,12 +13,22 @@ import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
 import Note from "./pages/Note";
 
+
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return ( 
     <BrowserRouter>
-      <NavBar />
+    
+      <NavBar toggleSidebar={toggleSidebar}/>
+      <div className="flex">
+        <SideBar isOpen={isSidebarOpen} />
+        <div className="flex-1">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/notes" element={<Notes />} />
@@ -30,7 +40,10 @@ function App() {
         <Route path="/sidebar" element={<SideBar />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+      </div>
+      </div>
       <Footer />
+     
     </BrowserRouter>
     
   );

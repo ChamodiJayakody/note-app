@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import img6 from "../assets/bg.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,8 @@ export default function SignIn() {
   const [password, setPassword] = useState();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +54,7 @@ export default function SignIn() {
     }
   };
 
+
   return (
     <div className="min-h-screen flex mt-28 justify-center">
       <div className=" w-3/12 my-3 relative ">
@@ -69,6 +72,7 @@ export default function SignIn() {
                   type="text"
                   placeholder="Email Address"
                   className="form-control"
+                  
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -87,7 +91,7 @@ export default function SignIn() {
               <div className="shadow-none mx-7 mt-1 px-2 bg-gray-100 bg-opacity-70 rounded-lg">
                 {error && (
                   <p className="text-red-500 text-xs pb-1 font-semibold">
-                    {" "}
+                        {" "}
                     {error}
                   </p>
                 )}

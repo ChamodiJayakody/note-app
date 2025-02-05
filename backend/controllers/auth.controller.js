@@ -3,6 +3,57 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
+// Signin Function
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(errorHandler(400, "All fields are required"));
+  }
+
+  try {
+    const validUser = await User.findOne({ email });
+
+    if (!validUser) {
+      return next(errorHandler(404, "User not found"));
+    }
+    console.log("Valid user found:", validUser);
+
+    
+
+
+    const isPasswordValid = await bcryptjs.compare(password, validUser .password);
+    // validUser.comparePassword(password);
+    
+
+    if (!isPasswordValid) {
+      return next(errorHandler(400, "Invalid password"));
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: validUser._id, isAdmin: validUser.isAdmin },
+      process.env.JWT_SECRET
+    );
+    const { password: pass, ...rest } = validUser._doc;
+
+    // Set the token as an HTTP-only cookie
+    res
+    .status(200)
+    .cookie("access_token", token, {
+      httpOnly: true,
+      
+    })
+    .json(rest,
+     
+    );
+} catch (error) {
+  console.error("Signin error:", error);
+  next(error);
+}
+};
+
+
 // Signup Function
 export const signup = async (req, res, next) => {
   const { firstname, lastname, email, password } = req.body;
@@ -25,57 +76,12 @@ export const signup = async (req, res, next) => {
 
   try {
     await newUser.save();
-
     res.json("Signup successful");
   } catch (error) {
     next(error);
   }
 };
 
-// Signin Function
-export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return next(errorHandler(400, "All fields are required"));
-  }
-
-  try {
-    const validUser = await User.findOne({ email });
-
-    if (!validUser) {
-      return next(errorHandler(404, "User not found"));
-    }
-    console.log("Valid user found:", validUser);
-
-    // Compare the provided password with the stored hashed password
-
-    const isPasswordValid = await bcryptjs.compare(password, validUser .password);
-    // validUser.comparePassword(password);
-
-    if (!isPasswordValid) {
-      return next(errorHandler(400, "Invalid password"));
-    }
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: validUser._id, isAdmin: validUser.isAdmin },
-      process.env.JWT_SECRET
-    );
-    const { password: pass, ...rest } = validUser._doc;
-
-    // Set the token as an HTTP-only cookie
-    res
-      .status(200)
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .json(rest);
-  } catch (error) {
-    console.error("Signin error:", error);
-    next(error);
-  }
-};
 
 export const google = async (req, res, next) => {
   const { email, name, googlePhotoUrl } = req.body;

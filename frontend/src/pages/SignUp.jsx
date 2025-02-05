@@ -27,6 +27,8 @@ export default function SignUp() {
     // console.log(formdata)
     // setError("");
 
+    
+
     if (
       !formdata.firstname ||
       !formdata.lastname ||

@@ -1,76 +1,89 @@
-import { Button } from "flowbite-react";
-
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
+
 import {
   HiAdjustments,
-  HiArrowSmRight,
+  HiOutlineDocumentAdd,
+  HiOutlineEmojiHappy,
   HiPlus,
-  HiTable,
-  HiUser,
   HiViewBoards,
 } from "react-icons/hi";
 
-export default function SideBar() {
-  const location = useLocation();
-  const [tab, setTab] = useState("");
-  const navigate = useNavigate();
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const tabFromUrl = urlParams.get("tab");
-    if (tabFromUrl) {
-      setTab(tabFromUrl);
-    }
-  }, [location.search]);
-
+export default function SideBar({ isOpen }) {
   return (
-    <Sidebar aria-label="Default sidebar example">
-      <Sidebar.Items>
-        <Sidebar.ItemGroup className="hover:icon-white">
-          <Link to="/notes?tab=new-note">
-            <Sidebar.Item
-              href="#"
-              icon={HiPlus}
-              className="my-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
-            >
-              Create New
-            </Sidebar.Item>
-          </Link>
+    <div
+      className={`transition-transform duration-300 ${
+        isOpen ? "w-64" : "w-0"
+      } overflow-hidden`}
+    >
+      <div className=" h-screen p-4">
+        <Sidebar aria-label="Default sidebar example">
+          <Sidebar.Items>
+            <Sidebar.ItemGroup className="hover:icon-white">
+              <Sidebar.Item
+                as={Link}
+                to="/notes?tab=dashboard"
+                href="#"
+                icon={HiViewBoards}
+                label="Pro"
+                labelColor="dark"
+                className="my-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+              >
+                Dashboard
+              </Sidebar.Item>
 
-          <Link to="/notes?tab=dashboard">
-            <Sidebar.Item
-              href="#"
-              icon={HiViewBoards}
-              label="Pro"
-              labelColor="dark"
-              className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
-            >
-              Dashboard
-            </Sidebar.Item>
-          </Link>
+              
+                <Sidebar.Item
+                as={Link}
+                to="/notes?tab=new-note"
+                  href="#"
+                  icon={HiPlus}
+                  className="mb-4  text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
+                >
+                  Create New
+                </Sidebar.Item>
+              
 
-          <Link to="/notes?tab=users">
-            <Sidebar.Item
-              href="#"
-              icon={HiUser}
-              className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
-            >
-              Users
-            </Sidebar.Item>
-          </Link>
+              
+                <Sidebar.Item
+                as={Link}
+                to="/notes?tab=focus"
+                  href="#"
+                  icon={HiOutlineEmojiHappy}
+                  className="mb-4  text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
+                >
+                  Focus
+                </Sidebar.Item>
+              
 
-          <Link to="/notes?tab=settings">
-            <Sidebar.Item
-              href="#"
-              icon={HiAdjustments}
-              className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
-            >
-              Settings
-            </Sidebar.Item>
-          </Link>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-    </Sidebar>
+              
+                <Sidebar.Item
+                as={Link}
+                to="/notes?tab=to-do"
+                  href="#"
+                  icon={HiOutlineDocumentAdd}
+                  className="mb-4  text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
+                >
+                  To-Do
+                </Sidebar.Item>
+              
+
+              
+                <Sidebar.Item
+                as={Link}
+                to="/notes?tab=settings"
+                  href="#"
+                  icon={HiAdjustments}
+                  className="mb-4 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
+                >
+                  Settings
+                </Sidebar.Item>
+              
+            </Sidebar.ItemGroup>
+          </Sidebar.Items>
+        </Sidebar>
+      </div>
+    </div>
   );
 }

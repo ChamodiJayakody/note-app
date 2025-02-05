@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import CreateNote from "./CreateNote";
 import { useLocation } from "react-router-dom";
-import Users from "./Users";
+import Focus from "./Focus";
 import Settings from "./Settings";
 import Dashboard from "./Dashboard";
 import { useNavigate } from "react-router-dom";
 import Note from "./Note";
+import ToDo from "./ToDo";
 
 
 export default function Notes() {
@@ -28,9 +29,10 @@ export default function Notes() {
 
       {tab === "new-note" && <CreateNote />}
       {tab === "dashboard" && <Dashboard />}
-      {tab === "users" && <Users />}
+      {tab === "focus" && <Focus />}
       {tab === "settings" && <Settings />}
       {tab === "notes" && <Note />}
+      {tab === "to-do" && <ToDo />}
     </div>
   );
 }
