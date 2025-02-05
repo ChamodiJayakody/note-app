@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
@@ -18,6 +18,7 @@ import Note from "./pages/Note";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -28,6 +29,7 @@ function App() {
       <NavBar toggleSidebar={toggleSidebar}/>
       <div className="flex">
         <SideBar isOpen={isSidebarOpen} />
+        
         <div className="flex-1">
       <Routes>
         <Route path="/" element={<Home />} />

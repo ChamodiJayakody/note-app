@@ -17,10 +17,10 @@ export default function SideBar({ isOpen }) {
         isOpen ? "w-64" : "w-0"
       } overflow-hidden`}
     >
-      <div className=" h-screen p-4">
+      <div className=" h-auto p-4 ">
         <Sidebar aria-label="Default sidebar example">
           <Sidebar.Items>
-            <Sidebar.ItemGroup className="hover:icon-white">
+            <Sidebar.ItemGroup className="hover:icon-white p-4 items-center">
               <Sidebar.Item
                 as={Link}
                 to="/notes?tab=dashboard"

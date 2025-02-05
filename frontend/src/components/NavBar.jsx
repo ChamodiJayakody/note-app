@@ -13,11 +13,29 @@ const NavBar = ({ toggleSidebar }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const fetchUser = async (userId) => {
+      try {
+        const response = await fetch(`/api/user/${userId}`, {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+        } else {
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
     
 
   const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      fetchUser(parsedUser._id); // Pass the userId to fetchUser
     }
   }, []);
 
@@ -44,9 +62,10 @@ const NavBar = ({ toggleSidebar }) => {
       style={{ zIndex: 1000 }}
     >
       <div className="flex items-center">
-        <button className="p-4 focus:outline-none" onClick={toggleSidebar}>
+      {user && (<button className="p-4 focus:outline-none" onClick={toggleSidebar}>
           <FaBars className="text-gray-800" />
-        </button>
+        </button>)}
+        
         <Navbar.Brand as={Link} to="/">
           <img
             src={img2}
