@@ -49,7 +49,7 @@ export const getNoteById = async (req, res, next) => {
 
 export const deleteNote = async (req, res, next) => {
   try {
-    const note = await Note.findOneAndDelete({ _id: req.params.noteId, user: req.user.id });
+    const note = await Note.findOneAndDelete({ _id: req.params.noteid, user: req.user.id });
     if (!note) {
       return next(errorHandler(404, 'Note not found'));
     }
