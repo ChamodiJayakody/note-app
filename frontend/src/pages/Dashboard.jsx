@@ -4,7 +4,7 @@ import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import NewNote from "../components/NewNote";
 import SearchBar from "../components/SearchBar";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [openCreateModal, setOpenCreateModal] = useState({
@@ -14,6 +14,9 @@ const Dashboard = () => {
   });
   const [notes, setNotes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [noteToDelete, setNoteToDelete] = useState(null);
+
   const navigate = useNavigate();
   const colors = [
     "bg-red-200",
@@ -51,14 +54,16 @@ const Dashboard = () => {
     }
   };
 
-  const handleDeleteNote = async (id) => {
+  const handleDeleteNote = async (noteid) => {
     try {
-      const response = await fetch(`/api/note/delete/${id}`, {
+      const response = await fetch(`/api/note/delete/${noteid}`, {
         method: "DELETE",
-        credentials: "include", 
+        credentials: "include",
       });
       if (response.ok) {
-        setNotes(notes.filter((note) => note._id !== id));
+        setNotes(notes.filter((note) => note._id !== noteid));
+      } else if (response.status === 404) {
+        console.error("Note not found");
       } else {
         console.error("Failed to delete note");
       }
@@ -67,16 +72,16 @@ const Dashboard = () => {
     }
   };
 
-  const handlePinNote = async (id) => {
+  const handlePinNote = async (noteid) => {
     try {
-      const response = await fetch(`/api/note/pin/${id}`, {
+      const response = await fetch(`/api/note/pin/${noteid}`, {
         method: "PUT",
         credentials: "include", // Add this line
       });
       if (response.ok) {
         const updatedNote = await response.json();
         setNotes((prevNotes) =>
-          prevNotes.map((note) => (note._id === id ? updatedNote : note))
+          prevNotes.map((note) => (note._id === noteid ? updatedNote : note))
         );
       } else {
         console.error("Failed to pin note");
@@ -107,20 +112,19 @@ const Dashboard = () => {
         console.error("Server error:", errorData);
         return false;
       }
-     
-        const newNote = await response.json();
-        setNotes([...notes, newNote]);
-        return true;
-      
+
+      const newNote = await response.json();
+      setNotes([...notes, newNote]);
+      return true;
     } catch (error) {
       console.error("Error adding note:", error);
       return false;
     }
   };
 
-  const handleUpdateNote = async (id, noteData) => {
+  const handleUpdateNote = async (noteid, noteData) => {
     try {
-      const response = await fetch(`/api/note/update/${id}`, {
+      const response = await fetch(`/api/note/update/${noteid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +135,7 @@ const Dashboard = () => {
       if (response.ok) {
         const updatedNote = await response.json();
         setNotes((prevNotes) =>
-          prevNotes.map((note) => (note._id === id ? updatedNote : note))
+          prevNotes.map((note) => (note._id === noteid ? updatedNote : note))
         );
         return true;
       } else {
@@ -144,12 +148,12 @@ const Dashboard = () => {
     }
   };
 
-  const handleSubmit = async (id, noteData) => {
-    console.log("handleSubmit called with:", id, noteData);
+  const handleSubmit = async (noteid, noteData) => {
+    console.log("handleSubmit called with:", noteid, noteData);
     if (openCreateModal.type === "add") {
       return await handleAddNote(noteData);
     } else {
-      return await handleUpdateNote(id, noteData);
+      return await handleUpdateNote(noteid, noteData);
     }
   };
 
@@ -159,6 +163,17 @@ const Dashboard = () => {
 
   const onClearSearch = () => {
     setSearchQuery("");
+  };
+
+  const openDeleteModal = (noteid) => {
+    setNoteToDelete(noteid);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDeleteNote = () => {
+    handleDeleteNote(noteToDelete);
+    setIsDeleteModalOpen(false);
+    setNoteToDelete(null);
   };
 
   return (
@@ -181,7 +196,7 @@ const Dashboard = () => {
               onEdit={() => {
                 setOpenCreateModal({ isShown: true, type: "edit", data: note });
               }}
-              onDelete={() => handleDeleteNote(note._id)}
+              onDelete={() => openDeleteModal(note._id)}
               onPinNote={() => handlePinNote(note._id)}
               color={getRandomColor()} // Pass the random color as a prop
             />
@@ -219,6 +234,37 @@ const Dashboard = () => {
           }}
           onSubmit={handleSubmit}
         />
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={() => setIsDeleteModalOpen(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(19, 85, 80, 0.8)",
+          },
+        }}
+        contentLabel="Delete Confirmation"
+        className="w-[30%] bg-white p-5 my-28 mx-auto rounded-2xl overflow-scroll"
+      >
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-4">Confirm Delete</h2>
+          <p>Are you sure you want to delete this note?</p>
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+              onClick={confirmDeleteNote}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-gray-300 text-black px-4 py-2 rounded"
+              onClick={() => setIsDeleteModalOpen(false)}
+            >
+              No
+            </button>
+          </div>
+        </div>
       </Modal>
     </>
   );
