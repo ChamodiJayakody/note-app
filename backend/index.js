@@ -7,6 +7,7 @@ import noteRoutes from "./routes/note.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 dotenv.config();
 
@@ -29,6 +30,12 @@ app.use(cookieParser());
 //for payhere payment gateway
 app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 app.use(bodyParser.json());
+
+// Use cors middleware
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from this origin
+  credentials: true // Allow cookies to be sent with requests
+}));
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");

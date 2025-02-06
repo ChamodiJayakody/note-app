@@ -126,7 +126,7 @@ const Dashboard = () => {
 
   const handleUpdateNote = async (noteid, noteData) => {
     try {
-      const response = await fetch(`/api/note/update/${noteid}`, {
+      const response = await fetch(`http://localhost:3000/api/note/update/${noteid}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

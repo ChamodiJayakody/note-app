@@ -76,7 +76,7 @@ export const pinNote = async (req, res, next) => {
 export const updateNote = async (req, res, next) => {
   try {
     const updatedNote = await Note.findOneAndUpdate(
-      { _id: req.params.noteId, user: req.user.id },
+      { _id: req.params.noteid, user: req.user.id },
       {
         $set: {
           title: req.body.title,

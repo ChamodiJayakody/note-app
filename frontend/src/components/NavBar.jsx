@@ -1,5 +1,5 @@
 import { Navbar } from "flowbite-react";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import img2 from "../assets/write.png";
 import Profile from "./Profile";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
     // Clear the user data and navigate to the sign-in page
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/sign-in");
+    navigate("/");
   };
 
   const handleSearch = () => {
@@ -66,12 +66,14 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
           Notes
         </Navbar.Link>
 
-        {user && (<SearchBar
-          value={searchQuery}
-          onChange={({ target }) => setSearchQuery(target.value)}
-          handleSearch={handleSearch}
-          onClearSearch={onClearSearch}
-        />)}
+        {user && (
+          <SearchBar
+            value={searchQuery}
+            onChange={({ target }) => setSearchQuery(target.value)}
+            handleSearch={handleSearch}
+            onClearSearch={onClearSearch}
+          />
+        )}
 
         {!user && (
           <Navbar.Link as={Link} to="/sign-up" className="text-xl mt-1 ml-40 ">
