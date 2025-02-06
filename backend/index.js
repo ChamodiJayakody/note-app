@@ -4,17 +4,11 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import noteRoutes from "./routes/note.route.js";
-
 import cookieParser from "cookie-parser";
 import path from "path";
 import bodyParser from "body-parser";
-import cors from "cors";
 
 dotenv.config();
-
-// console.log('Loaded Environment Variables:');
-// console.log('MONGO:', process.env.MONGO);
-// console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
 mongoose
   .connect(process.env.MONGO)
@@ -27,20 +21,14 @@ mongoose
   });
 
 const __dirname = path.resolve();
-
 const app = express();
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-  exposedHeaders: ['Set-Cookie']
-}));
 
 app.use(express.json());
 app.use(cookieParser());
 
-
+//for payhere payment gateway
+app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");
@@ -49,11 +37,6 @@ app.listen(3000, () => {
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/note", noteRoutes);
-
-
-//for payhere payment gateway
-app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
-app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "../refaa-client/dist")));
 

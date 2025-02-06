@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { validateemail } from "../utils/validateemail";
 
-export default function SignIn() {
+export default function SignIn({ setUser }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState(null);
@@ -46,6 +46,7 @@ export default function SignIn() {
       console.log("Sign-in Success:", result);
       if (result) {
         localStorage.setItem("user", JSON.stringify(result)); // Store user data in local storage
+        setUser(result);
         navigate("/notes?tab=notes");
       }
     } catch (err) {
