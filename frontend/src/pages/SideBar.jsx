@@ -14,7 +14,7 @@ export default function SideBar({ isOpen }) {
   return (
     <div
       className={`transition-transform duration-300 ${
-        isOpen ? "w-64" : "w-0"
+        isOpen ? "w-64" : "w-0" 
       } overflow-hidden`}
     >
       <div className=" h-auto p-4 ">

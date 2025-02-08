@@ -82,6 +82,7 @@ const Dashboard = () => {
       });
       if (response.ok) {
         const updatedNote = await response.json();
+        window.location.reload();
         setNotes((prevNotes) =>
           prevNotes.map((note) => (note._id === noteid ? updatedNote : note))
         );
@@ -182,6 +183,7 @@ const Dashboard = () => {
     <>
       <div className="container ml-5 mt-8 mx-auto">
         <SearchBar
+        
           value={searchQuery}
           onChange={({ target }) => setSearchQuery(target.value)}
           handleSearch={handleSearch}
@@ -207,7 +209,7 @@ const Dashboard = () => {
       </div>
 
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-teal-800 hover:bg-teal-500 absolute right-10 bottom-10"
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-teal-800 hover:bg-teal-500 fixed right-10 bottom-10"
         onClick={() => {
           setOpenCreateModal({ isShown: true, type: "add", data: null });
         }}
