@@ -23,7 +23,9 @@ const SignOut = () => {
       localStorage.removeItem('user');
       
       // Redirect to home page or sign-in page
+      
       navigate('/sign-in');
+      window.location.reload();
     } catch (error) {
       console.error('Signout failed', error);
       setError('Failed to sign out. Please try again.');
