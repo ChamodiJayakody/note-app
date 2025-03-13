@@ -16,6 +16,9 @@ const NoteCard = ({
   onPinNote,
   color,
 }) => {
+
+
+
   return (
     <div
       className={`rounded-lg p-4 shadow-md ${color} hover:shadow-xl transition-all ease-in-out`}
@@ -30,8 +33,11 @@ const NoteCard = ({
         />
       </div>
       <p className="text-xs text-gray-500">{date}</p>
-      <p className="text-sm text-gray-700 mt-2">{content?.slice(0, 60)}</p>
-
+      
+      <div
+        className="text-sm text-gray-700 mt-2 note-content"
+        dangerouslySetInnerHTML={{ __html: content }}
+      ></div>
       <div className="flex items-center justify-end mt-2">
         <div className="flex items-center gap-2">
           <MdCreate

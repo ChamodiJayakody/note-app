@@ -1,33 +1,33 @@
 import React from "react";
-import img5 from "../assets/notes.png";
+import img5 from "../assets/notes.jpg";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 
 
 function Note() {
   return (
-    <div className="h-fit flex hover:shadow-xl  rounded-3xl ml-10 mr-10 mt-0">
-      <div className=" bg-pink-100 rounded-3xl pr-10">
-        <h1 className="text-3xl pt-8 ml-10  text-gray-600">
-          <span className="font-semibold">
+    <div className="relative min-h-screen w-full flex items-center justify-center">
+      <div className="max-w-2xl text-center flex flex-col items-center justify-center z-10">
+        <h1 className="text-3xl text-gray-700">
+          <span className="font-semibold ">
             Getting Started with your New Note✨
           </span>{" "}
         </h1>
-        <p className="text-lg mt-7 ml-10 text-gray-700">
+        <p className="text-lg mt-7  text-gray-800">
           📝 This is your digital canvas. Paint it with ideas, dreams, or lists.
         </p>
-        <p className="text-lg mt-6 ml-10 text-gray-700">
+        <p className="text-lg mt-6  text-gray-800">
           📝 Never lose a thought: Sync your notes across devices. Access them
           anytime, anywhere.
         </p>
-        <p className="text-lg mt-6 ml-10 text-gray-700">
+        <p className="text-lg mt-6  text-gray-800">
           📝 Note-taking can be enjoyable! Let's make it an adventure.
         </p>
         <div>
-          <div className="text-center text-gray-600 font-medium text-lg mt-5">
+          <div className="text-center text-gray-700 font-medium text-xl mt-5">
             Already have an Account?
             <Link to="/sign-in">
-              <div className="text-pink-800 hover:text-pink-500 text-xl mt-2 ">
+              <div className="text-pink-800 hover:text-pink-500 text-2xl mt-2 ">
                 Sign in
               </div>
             </Link>
@@ -41,10 +41,15 @@ function Note() {
             </Link>
           </div>
         </div>
+        </div>
+        <img
+          src={img5}
+          alt="Background Image"
+          className="fixed inset-0 w-screen"
+          style={{ zIndex: -2, opacity: 1 }}
+        />
       </div>
-
-      <img src={img5} className="size-96 ml-20 mr-10 mt-10 pb-0" />
-    </div>
+      
   );
 }
 
