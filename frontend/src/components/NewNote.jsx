@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Label, Textarea } from "flowbite-react";
 import { MdClose } from "react-icons/md";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const NewNote = ({ noteData, type, onClose, onSubmit }) => {
   const [title, setTitle] = useState(noteData?.title || "");
@@ -74,7 +76,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit }) => {
         <Label className="input-label" htmlFor="content">
           Content
         </Label>
-        <Textarea
+        {/* <Textarea
           type="text"
           id="content"
           placeholder="milk, eggs, bread"
@@ -82,6 +84,16 @@ const NewNote = ({ noteData, type, onClose, onSubmit }) => {
           className="text-sm mt-5 text-gray-900 border-none bg-gray-100 rounded outline-none font-medium"
           value={content}
           onChange={({ target }) => setContent(target.value)}
+        /> */}
+        <ReactQuill
+        type="text"
+          id="content"
+          theme="snow"
+          placeholder="milk, eggs, bread"
+          value={content}
+          onChange={setContent}
+          style={{ outline: 'none' }}
+          className="text-sm mt-5 text-gray-900 border-none bg-white rounded-2xl outline-none font-medium"
         />
       </div>
 

@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
-import img6 from "../assets/bg.png";
+import img6 from "../assets/auth.jpg";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { validateemail } from "../utils/validateemail";
@@ -74,10 +74,10 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center">
+    <div className="min-h-screen flex justify-center mt-4">
       <div className="md:w-5/12 my-3 relative">
         <div>
-          <div className="bg-gray-300 bg-opacity-50 rounded-3xl shadow-2xl border-2 border-gray-200">
+          <div className="bg-teal-300 bg-opacity-20 rounded-3xl shadow-2xl border-2 border-gray-200">
             <h1 className="pt-3 text-2xl text-center text-gray-80 font-semibold">
               Sign Up
             </h1>

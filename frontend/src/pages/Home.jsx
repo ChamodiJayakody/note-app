@@ -3,22 +3,25 @@ import img1 from "../assets/image1.jpg";
 import React, { useState } from 'react';
 import Modal from "react-modal";
 import Auth from "../components/Auth";
+import img2 from "../assets/notes.jpg";
 
 export default function Home() {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen flex justify-center mt-4">
+    <div className="md:w-5/12 my-3 relative">
       <img
         src={img1}
         alt="Background Image"
-        className="absolute inset-0 object-cover w-full h-full"
+        className=" fixed inset-0 object-cover w-full h-full"
+        style={{ zIndex: -2, opacity: 1 }}
       />
 
-      <div className="relative flex justify-center items-center ">
+      <div className="relative flex justify-center items-center">
         <div className="text-center">
           <div>
-            <h1 className="text-6xl  text-text_medium mt-28">
+            <h1 className="text-6xl text-text_medium mt-28">
               <span className="font-semibold">Note </span><span className="font-medium">Making App</span>
             </h1>
           </div>
@@ -39,18 +42,28 @@ export default function Home() {
             onRequestClose={() => setOpenModal(false)}
             style={{
               overlay: {
-                backgroundColor: "rgba(19, 85, 80, 0.8)",
+                backgroundColor: "rgba(0, 0, 0, 0.3)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               },
             }}
             contentLabel=""
-            className="w-[60%] bg-white p-5 my-28 mx-auto rounded-2xl overflow-scroll"
+            className="w-[60%] mx-auto rounded-2xl"
           >
-            <div className="justify-center">
-              <Auth />
+            <div
+              className=" relative w-full h-full bg-cover bg-center p-5 rounded-2xl flex justify-center items-center"
+              
+            >
+              <div className="bg-white bg-opacity-70 p-10 rounded-2xl hover:shadow-2xl"
+              style={{ backgroundImage: `url(${img2})` , backgroundSize: 'cover'}}>
+                <Auth />
+              </div>
             </div>
           </Modal>
         </div>
       </div>
+    </div>
     </div>
   );
 }

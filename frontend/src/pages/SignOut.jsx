@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Toast } from 'flowbite-react';
 import { MdLoop } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import img6 from '../assets/bg.png';
+import img6 from '../assets/auth.jpg';
 
 const SignOut = () => {
   const [error, setError] = useState(null);

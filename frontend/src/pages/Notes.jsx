@@ -21,12 +21,11 @@ export default function Notes() {
     }
   }, [location.search]);
   return (
-    <div className="sm:flex min-h-screen">
+    <div className="flex min-h-screen">
       
       <div>
         <SideBar />
       </div>
-
       {tab === "new-note" && <CreateNote />}
       {tab === "dashboard" && <Dashboard />}
       {tab === "focus" && <Focus />}
