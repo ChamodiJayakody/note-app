@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import { useNavigate } from "react-router-dom";
 import Note from "./Note";
 import ToDo from "./ToDo";
+import GetStarted from "./GetStarted";
 
 
 export default function Notes() {
@@ -22,7 +23,7 @@ export default function Notes() {
   }, [location.search]);
   return (
     <div className="flex min-h-screen">
-      
+
       <div>
         <SideBar />
       </div>
@@ -32,6 +33,7 @@ export default function Notes() {
       {tab === "settings" && <Settings />}
       {tab === "notes" && <Note />}
       {tab === "to-do" && <ToDo />}
+      {tab === "get-started" && <GetStarted />}
     </div>
   );
 }
