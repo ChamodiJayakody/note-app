@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
 import Note from "./pages/Note";
+import GetStarted from "./pages/GetStarted";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -46,6 +47,8 @@ function App() {
         <Route path="/create-note" element={<CreateNote />} />
         <Route path="/sidebar" element={<SideBar />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/get-started" element={<GetStarted />} />
+
       </Routes>
       </div>
       </div>

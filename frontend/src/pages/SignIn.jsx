@@ -57,7 +57,7 @@ export default function SignIn({ setUser }) {
 
 
   return (
-    <div className="min-h-screen flex mt-28 justify-center">
+    <div className="min-h-screen flex mt-28 justify-center ">
       <div className=" w-3/12 my-3 relative ">
         <div>
           <div className="bg-teal-300 bg-opacity-20 rounded-3xl border-2 border-gray-300  shadow-2xl">
