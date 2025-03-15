@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Focus from "./Focus";
 import Settings from "./Settings";
 import Dashboard from "./Dashboard";
-import { useNavigate } from "react-router-dom";
+import bg from "../assets/notesbg.png";
 import Note from "./Note";
 import ToDo from "./ToDo";
 import GetStarted from "./GetStarted";
@@ -23,7 +23,12 @@ export default function Notes() {
   }, [location.search]);
   return (
     <div className="flex min-h-screen">
-
+<img
+          src={bg}
+          alt="Background Image"
+          className="fixed inset-0 w-screen"
+          style={{ zIndex: -2, opacity: 1 }}
+        />
       <div>
         <SideBar />
       </div>
@@ -34,6 +39,8 @@ export default function Notes() {
       {tab === "notes" && <Note />}
       {tab === "to-do" && <ToDo />}
       {tab === "get-started" && <GetStarted />}
+
+      
     </div>
   );
 }
