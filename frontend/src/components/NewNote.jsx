@@ -52,7 +52,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
       )}
 
       <div className="flex flex-col">
-        <Label className="input-label text-xl font-semibold" htmlFor="title">
+        <Label className="input-label text-xl mb-2 font-medium text-gray-800" htmlFor="title">
           Title
         </Label>
         <input
@@ -66,7 +66,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
       </div>
 
       <div className="flex flex-col mt-4">
-        <Label className="input-label text-xl font-semibold" htmlFor="content">
+        <Label className="input-label text-xl mb-2 font-medium text-gray-800" htmlFor="content">
           Content
         </Label>
         <ReactQuill
