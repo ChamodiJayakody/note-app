@@ -43,7 +43,7 @@ export default function Settings() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Settings</h1>
+      <h1 className="text-3xl font-semibold text-gray-800 mb-4">Settings</h1>
       <div className="mb-4">
         <Label htmlFor="firstname">First Name</Label>
         <TextInput

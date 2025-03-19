@@ -30,3 +30,35 @@ export const getTasks = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteTask = async (req, res, next) => {
+  try {
+    const task = await Task.findOneAndDelete({ _id: req.params.taskId, user: req.user.id });
+    if (!task) {
+      return next(errorHandler(404, 'Task not found'));
+    }
+    res.status(200).json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateTask = async (req, res, next) => {
+  const { text, dueDate, completed, priority } = req.body;
+
+  try {
+    const updatedTask = await Task.findOneAndUpdate(
+      { _id: req.params.taskId, user: req.user.id },
+      { text, dueDate, completed, priority },
+      { new: true }
+    );
+
+    if (!updatedTask) {
+      return next(errorHandler(404, 'Task not found'));
+    }
+
+    res.status(200).json(updatedTask);
+  } catch (error) {
+    next(error);
+  }
+};

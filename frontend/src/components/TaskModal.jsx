@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
-import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, TextInput, Select } from 'flowbite-react';
+import { MdDelete, MdSave } from 'react-icons/md';
 
-const TaskModal = ({ isOpen, onClose, onSubmit, task }) => {
+const TaskModal = ({ isOpen, onClose, onSubmit, onDelete, task }) => {
   const [text, setText] = useState(task?.text || '');
   const [dueDate, setDueDate] = useState(task?.dueDate || '');
+  const [priority, setPriority] = useState(task?.priority || 'Not Urgent & Not Important');
 
   const handleSubmit = () => {
     if (!text || !dueDate) return;
-    onSubmit({ text, dueDate });
+    onSubmit({ ...task, text, dueDate, priority });
     onClose();
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(task._id);
+      onClose();
+    }
   };
 
   return (
@@ -33,13 +42,51 @@ const TaskModal = ({ isOpen, onClose, onSubmit, task }) => {
               onChange={(e) => setDueDate(e.target.value)}
             />
           </div>
+          <div>
+  <Label htmlFor="priority">Priority</Label>
+  <Select
+    id="priority"
+    value={priority}
+    onChange={(e) => setPriority(e.target.value)}
+  >
+    <option value="Urgent & Important">Urgent & Important</option>
+    <option value="Urgent but Not Important">Urgent but Not Important</option>
+    <option value="Not Urgent but Important">Not Urgent but Important</option>
+    <option value="Not Urgent & Not Important">Not Urgent & Not Important</option>
+  </Select>
+</div>
+          <div>
+            <Label htmlFor="priority">Priority</Label>
+            <Select
+              id="priority"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+            >
+              <option value="Urgent & Important">Urgent & Important</option>
+              <option value="Urgent but Not Important">Urgent but Not Important</option>
+              <option value="Not Urgent but Important">Not Urgent but Important</option>
+              <option value="Not Urgent & Not Important">Not Urgent & Not Important</option>
+            </Select>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleSubmit}>{task ? 'Update' : 'Add'}</Button>
-        <Button color="gray" onClick={onClose}>
-          Cancel
-        </Button>
+        <div className="flex justify-between w-full">
+          <button
+            onClick={handleDelete}
+            className="flex items-center text-red-500 hover:text-red-700"
+          >
+            <MdDelete className="mr-1" />
+            Delete
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="flex items-center text-green-500 hover:text-green-700"
+          >
+            <MdSave className="mr-1" />
+            {task ? 'Update' : 'Add'}
+          </button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
