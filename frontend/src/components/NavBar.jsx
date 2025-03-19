@@ -2,7 +2,7 @@ import { Navbar } from "flowbite-react";
 import React, { useState } from "react";
 import img2 from "../assets/write.png";
 import Profile from "./Profile";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
@@ -10,12 +10,20 @@ import { FaBars } from "react-icons/fa";
 const NavBar = ({ toggleSidebar, user, setUser }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSignOut = () => {
     // Clear the user data and navigate to the sign-in page
     localStorage.removeItem("user");
     setUser(null);
     navigate("/");
+  };
+
+  const isActive = (path) => {
+    const [basePath, query] = path.split("?");
+    const isPathMatch = location.pathname === basePath;
+    const isQueryMatch = query ? location.search === `?${query}` : true;
+    return isPathMatch && isQueryMatch;
   };
 
   const handleSearch = () => {
@@ -25,6 +33,8 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
   const onClearSearch = () => {
     setSearchQuery("");
   };
+
+  
 
   return (
     <Navbar
@@ -54,14 +64,20 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
         <Navbar.Link
           as={Link}
           to="/"
-          className="text-xl mt-2 hover:text-pink-500"
+          className={`text-xl mt-2 hover:text-pink-500 ${
+            isActive("/") ? "text-pink-500 font-bold" : ""
+          }`}
         >
           Home
         </Navbar.Link>
         <Navbar.Link
           as={Link}
           to={user ? "/notes?tab=notes" : "/note"}
-          className="text-xl mt-2 hover:text-pink-500"
+          className={`text-xl mt-2 hover:text-pink-500 ${
+            isActive(user ? "/notes?tab=notes" : "/note")
+              ? "text-pink-500 font-bold"
+              : ""
+          }`}
         >
           Notes
         </Navbar.Link>
