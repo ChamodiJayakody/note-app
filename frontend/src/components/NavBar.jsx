@@ -54,14 +54,14 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
         <Navbar.Link
           as={Link}
           to="/"
-          className="text-xl mt-1 hover:text-pink-500"
+          className="text-xl mt-2 hover:text-pink-500"
         >
           Home
         </Navbar.Link>
         <Navbar.Link
           as={Link}
           to={user ? "/notes?tab=notes" : "/note"}
-          className="text-xl mt-1 hover:text-pink-500"
+          className="text-xl mt-2 hover:text-pink-500"
         >
           Notes
         </Navbar.Link>
@@ -77,7 +77,9 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
 
         {!user && (
           <Navbar.Link as={Link} to="/sign-up" className="text-xl mt-1 ml-40 ">
+            <button className="  text-xl p-1.5 text-pink-800 rounded-2xl ring-2 ring-pink-800 hover:text-pink-500 hover:ring-pink-500">
             Sign Up
+          </button>
           </Navbar.Link>
         )}
       </Navbar.Collapse>

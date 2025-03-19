@@ -180,8 +180,9 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-      <div className="container ml-5 mt-8 mx-auto">
+    <div className="container p-4  mx-auto">
+    
+      <div >
         <SearchBar
         
           value={searchQuery}
@@ -189,7 +190,7 @@ const Dashboard = () => {
           handleSearch={handleSearch}
           onClearSearch={onClearSearch}
         />
-        <div className="ml-5 grid grid-cols-3 gap-4 mt-8">
+        <div className=" grid grid-cols-3 gap-4 mt-4">
           {notes.map((note) => (
             <NoteCard
               key={note._id}
@@ -270,7 +271,7 @@ const Dashboard = () => {
           </div>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

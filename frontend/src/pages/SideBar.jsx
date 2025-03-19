@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation  } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
 
 import {
@@ -11,15 +11,18 @@ import {
 } from "react-icons/hi";
 
 export default function SideBar({ isOpen }) {
+  const location = useLocation();
+  const currentPath = location.search;
+
   return (
     
       <div
-        className={`transition-transform duration-300 ${isOpen ? "w-64" : "w-0"
+        className={`transition-transform  duration-300 ${isOpen ? "w-64" : "w-0"
           } overflow-hidden`}
       >
-        <div className="rounded-2xl mt-24 bg-transparent p-2">
+        <div className=" mt-24 bg-transparent">
           <Sidebar aria-label="Default sidebar example">
-            <Sidebar.Items className="rounded-2xl bg-transparent">
+            <Sidebar.Items className=" bg-transparent">
               <Sidebar.ItemGroup className="hover:icon-white items-center ">
                 <Sidebar.Item
                   as={Link}
@@ -28,8 +31,9 @@ export default function SideBar({ isOpen }) {
                   icon={HiViewBoards}
                   label="Pro"
                   labelColor="dark"
-                  className="py-3 px-1 text-lg  hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
-                >
+                  className={`py-3 px-1 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                  currentPath === "?tab=dashboard" ? "bg-teal-600 text-white" : ""
+                }`}>
                   Dashboard
                 </Sidebar.Item>
 
@@ -39,8 +43,9 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=new-note"
                   href="#"
                   icon={HiPlus}
-                  className="py-3  text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
-                >
+                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                    currentPath === "?tab=new-note" ? "bg-teal-600 text-white" : ""
+                  }`}>
                   Create New
                 </Sidebar.Item>
 
@@ -51,7 +56,9 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=focus"
                   href="#"
                   icon={HiOutlineEmojiHappy}
-                  className="py-3  text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
+                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                    currentPath === "?tab=focus" ? "bg-teal-600 text-white" : ""
+                  }`}
                 >
                   Focus
                 </Sidebar.Item>
@@ -63,8 +70,9 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=to-do"
                   href="#"
                   icon={HiOutlineDocumentAdd}
-                  className="py-3  text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white "
-                >
+                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                    currentPath === "?tab=to-do" ? "bg-teal-600 text-white" : ""
+                  }`}>
                   To-Do
                 </Sidebar.Item>
 
@@ -75,8 +83,9 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=settings"
                   href="#"
                   icon={HiAdjustments}
-                  className="py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white"
-                >
+                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                    currentPath === "?tab=settings" ? "bg-teal-600 text-white" : ""
+                  }`}>
                   Settings
                 </Sidebar.Item>
 

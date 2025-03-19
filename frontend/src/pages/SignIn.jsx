@@ -60,7 +60,7 @@ export default function SignIn({ setUser }) {
     <div className="min-h-screen flex mt-28 justify-center ">
       <div className=" w-3/12 my-3 relative ">
         <div>
-          <div className="bg-teal-300 bg-opacity-20 rounded-3xl border-2 border-gray-300  shadow-2xl">
+          <div className="bg-teal-400 bg-opacity-20 rounded-3xl shadow-2xl">
             <h1 className="pt-3 text-2xl text-center text-gray-800 font-semibold ">
               Sign In
             </h1>
@@ -72,8 +72,7 @@ export default function SignIn({ setUser }) {
                   autoComplete="off"
                   type="text"
                   placeholder="Email Address"
-                  className="form-control"
-                  
+                  className="form-control ring-0"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
