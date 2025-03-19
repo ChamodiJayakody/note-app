@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
 import NewNote from "../components/NewNote";
-import "react-quill/dist/quill.snow.css";
 
 function CreateNote() {
   const [noteData, setNoteData] = useState({ title: "", content: "" });
@@ -42,16 +40,14 @@ function CreateNote() {
   };
 
   return (
-    
     <div className="w-[1000px] mx-auto mt-8">
-      
       <NewNote
         type="add"
         noteData={noteData}
         onClose={() => console.log("Modal closed")}
         onSubmit={handleSubmit}
+        showCloseButton={false} // Hide the close button
       />
-    
     </div>
   );
 }

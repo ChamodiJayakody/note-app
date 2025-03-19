@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button, Label, Textarea } from "flowbite-react";
+import { Button, Label } from "flowbite-react";
 import { MdClose } from "react-icons/md";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const NewNote = ({ noteData, type, onClose, onSubmit }) => {
+const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) => {
   const [title, setTitle] = useState(noteData?.title || "");
   const [content, setContent] = useState(noteData?.content || "");
   const [error, setError] = useState(null);
@@ -23,19 +23,10 @@ const NewNote = ({ noteData, type, onClose, onSubmit }) => {
     setIsLoading(true);
 
     try {
-      if (typeof onSubmit !== 'function') {
-        // throw new Error('onSubmit is not a function');
-        console.error("onSubmit is not a function");
-        return;
-      }
-
-      console.log("Calling onSubmit with:", { title, content });
-      
       const success = await onSubmit(
         type === "edit" ? noteData?._id : null,
         { title, content }
       );
-      
       if (success) {
         onClose();
       } else {
@@ -51,12 +42,14 @@ const NewNote = ({ noteData, type, onClose, onSubmit }) => {
 
   return (
     <div className="relative">
-      <button
-        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-gray-100"
-        onClick={onClose}
-      >
-        <MdClose className="text-xl text-gray-500 hover:text-gray-800" />
-      </button>
+      {showCloseButton && (
+        <button
+          className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-gray-100"
+          onClick={onClose}
+        >
+          <MdClose className="text-xl text-gray-500 hover:text-gray-800" />
+        </button>
+      )}
 
       <div className="flex flex-col">
         <Label className="input-label" htmlFor="title">
@@ -76,23 +69,14 @@ const NewNote = ({ noteData, type, onClose, onSubmit }) => {
         <Label className="input-label" htmlFor="content">
           Content
         </Label>
-        {/* <Textarea
-          type="text"
-          id="content"
-          placeholder="milk, eggs, bread"
-          rows={10}
-          className="text-sm mt-5 text-gray-900 border-none bg-gray-100 rounded outline-none font-medium"
-          value={content}
-          onChange={({ target }) => setContent(target.value)}
-        /> */}
         <ReactQuill
-        type="text"
+          type="text"
           id="content"
           theme="snow"
           placeholder="milk, eggs, bread"
           value={content}
           onChange={setContent}
-          style={{ outline: 'none' }}
+          style={{ outline: "none" }}
           className="text-sm mt-5 text-gray-900 border-none bg-white rounded-2xl outline-none font-medium"
         />
       </div>
@@ -108,7 +92,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit }) => {
         onClick={handleSubmit}
         disabled={isLoading}
       >
-        {isLoading ? 'Saving...' : (type === 'edit' ? 'Update' : 'Add')}
+        {isLoading ? "Saving..." : type === "edit" ? "Update" : "Add"}
       </Button>
     </div>
   );
