@@ -42,13 +42,16 @@ function CreateNote() {
   };
 
   return (
+    
     <div className="w-[1000px] mx-auto mt-8">
+      
       <NewNote
         type="add"
         noteData={noteData}
         onClose={() => console.log("Modal closed")}
         onSubmit={handleSubmit}
       />
+    
     </div>
   );
 }
