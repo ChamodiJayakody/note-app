@@ -210,7 +210,7 @@ const Dashboard = () => {
       </div>
 
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-teal-800 hover:bg-teal-500 fixed right-10 bottom-10"
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-teal-800 hover:bg-teal-600 fixed right-10 bottom-10"
         onClick={() => {
           setOpenCreateModal({ isShown: true, type: "add", data: null });
         }}
