@@ -52,21 +52,21 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
       )}
 
       <div className="flex flex-col">
-        <Label className="input-label" htmlFor="title">
+        <Label className="input-label text-xl font-semibold" htmlFor="title">
           Title
         </Label>
         <input
           type="text"
           id="title"
           placeholder="Grocery shopping"
-          className="rounded-xl text-2xl text-gray-900 border-none"
+          className="rounded-xl text-2xl text-gray-900 border-none ring-0"
           value={title}
           onChange={({ target }) => setTitle(target.value)}
         />
       </div>
 
       <div className="flex flex-col mt-4">
-        <Label className="input-label" htmlFor="content">
+        <Label className="input-label text-xl font-semibold" htmlFor="content">
           Content
         </Label>
         <ReactQuill
@@ -77,7 +77,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
           value={content}
           onChange={setContent}
           style={{ outline: "none" }}
-          className="text-sm mt-5 text-gray-900 border-none bg-white rounded-2xl outline-none font-medium"
+          className="text-2xl  text-gray-900 border-none bg-white rounded-2xl outline-none font-medium ring-0"
         />
       </div>
 

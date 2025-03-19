@@ -28,7 +28,7 @@
   }
 
   .btn-general {
-    @apply w-full text-sm bg-teal-800 hover:bg-teal-500 cursor-pointer  text-gray-200 p-2 rounded-xl my-1;
+    @apply w-full text-sm bg-teal-800 hover:bg-teal-600 cursor-pointer  text-gray-200 p-2 rounded-xl my-1;
   }
   
 }
