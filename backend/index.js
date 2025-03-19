@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import noteRoutes from "./routes/note.route.js";
+import taskRoutes from './routes/task.route.js';
 import cookieParser from "cookie-parser";
 import path from "path";
 import bodyParser from "body-parser";
@@ -44,6 +45,7 @@ app.listen(3000, () => {
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/note", noteRoutes);
+app.use('/api/task', taskRoutes);
 
 app.use(express.static(path.join(__dirname, "../refaa-client/dist")));
 

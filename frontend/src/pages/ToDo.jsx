@@ -1,28 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ToDo() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [dueDate, setDueDate] = useState('');
 
-  const addTask = () => {
-    if (newTask.trim() && dueDate) {
-      setTasks([...tasks, { text: newTask, dueDate, completed: false }]);
-      setNewTask('');
-      setDueDate('');
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('/api/task/get', {
+        credentials: 'include',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setTasks(data);
+      } else {
+        console.error('Failed to fetch tasks');
+      }
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
     }
   };
 
-  const toggleTaskCompletion = (index) => {
-    const updatedTasks = tasks.map((task, i) =>
-      i === index ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
-  };
+  const addTask = async () => {
+    if (!newTask.trim() || !dueDate) return;
 
-  const deleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
+    try {
+      const response = await fetch('/api/task/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ text: newTask, dueDate }),
+      });
+
+      if (response.ok) {
+        const task = await response.json();
+        setTasks([...tasks, task]);
+        setNewTask('');
+        setDueDate('');
+      } else {
+        console.error('Failed to add task');
+      }
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
   };
 
   return (
@@ -42,25 +68,22 @@ export default function ToDo() {
           onChange={(e) => setDueDate(e.target.value)}
           className="border p-2 mr-2 rounded"
         />
-        <button onClick={addTask} className="bg-blue-500 text-white p-2 rounded">
+        <button onClick={addTask} className="bg-teal-800 hover:bg-teal-600 text-white p-2 rounded">
           Add Task
         </button>
       </div>
       <ul>
-        {tasks.map((task, index) => (
-          <li key={index} className="flex items-center mb-2">
+        {tasks.map((task) => (
+          <li key={task._id} className="flex items-center mb-2">
             <input
               type="checkbox"
               checked={task.completed}
-              onChange={() => toggleTaskCompletion(index)}
+              onChange={() => {}}
               className="mr-2"
             />
             <span className={`flex-1 ${task.completed ? 'line-through' : ''}`}>
-              {task.text} (Due: {task.dueDate})
+              {task.text} (Due: {new Date(task.dueDate).toLocaleDateString()})
             </span>
-            <button onClick={() => deleteTask(index)} className="bg-red-500 text-white p-1 rounded">
-              Delete
-            </button>
           </li>
         ))}
       </ul>

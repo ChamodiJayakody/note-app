@@ -31,7 +31,7 @@ export default function SideBar({ isOpen }) {
                   icon={HiViewBoards}
                   label="Pro"
                   labelColor="dark"
-                  className={`py-3 px-1 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                  className={`py-3 px-1 text-lg hover:bg-teal-800 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
                   currentPath === "?tab=dashboard" ? "bg-teal-600 text-white" : ""
                 }`}>
                   Dashboard
@@ -43,7 +43,7 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=new-note"
                   href="#"
                   icon={HiPlus}
-                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                  className={`py-3 text-lg hover:bg-teal-800 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
                     currentPath === "?tab=new-note" ? "bg-teal-600 text-white" : ""
                   }`}>
                   Create New
@@ -56,7 +56,7 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=focus"
                   href="#"
                   icon={HiOutlineEmojiHappy}
-                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                  className={`py-3 text-lg hover:bg-teal-800 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
                     currentPath === "?tab=focus" ? "bg-teal-600 text-white" : ""
                   }`}
                 >
@@ -70,7 +70,7 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=to-do"
                   href="#"
                   icon={HiOutlineDocumentAdd}
-                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                  className={`py-3 text-lg hover:bg-teal-800 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
                     currentPath === "?tab=to-do" ? "bg-teal-600 text-white" : ""
                   }`}>
                   To-Do
@@ -83,7 +83,7 @@ export default function SideBar({ isOpen }) {
                   to="/notes?tab=settings"
                   href="#"
                   icon={HiAdjustments}
-                  className={`py-3 text-lg hover:bg-teal-600 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
+                  className={`py-3 text-lg hover:bg-teal-800 text-gray-500 font-semibold hover:shadow-2xl hover:text-white ${
                     currentPath === "?tab=settings" ? "bg-teal-600 text-white" : ""
                   }`}>
                   Settings

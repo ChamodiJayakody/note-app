@@ -40,7 +40,7 @@ function CreateNote() {
   };
 
   return (
-    <div className="w-[1000px] mx-auto mt-8">
+    <div className="container p-4  mx-auto">
       <NewNote
         type="add"
         noteData={noteData}
