@@ -55,19 +55,7 @@ const TaskModal = ({ isOpen, onClose, onSubmit, onDelete, task }) => {
     <option value="Not Urgent & Not Important">Not Urgent & Not Important</option>
   </Select>
 </div>
-          <div>
-            <Label htmlFor="priority">Priority</Label>
-            <Select
-              id="priority"
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-            >
-              <option value="Urgent & Important">Urgent & Important</option>
-              <option value="Urgent but Not Important">Urgent but Not Important</option>
-              <option value="Not Urgent but Important">Not Urgent but Important</option>
-              <option value="Not Urgent & Not Important">Not Urgent & Not Important</option>
-            </Select>
-          </div>
+          
         </div>
       </Modal.Body>
       <Modal.Footer>

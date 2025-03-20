@@ -2,7 +2,7 @@ import Task from '../models/task.model.js';
 import { errorHandler } from '../utils/error.js';
 
 export const createTask = async (req, res, next) => {
-  const { text, dueDate } = req.body;
+  const { text, dueDate, priority } = req.body; // Ensure priority is destructured
 
   if (!text || !dueDate) {
     return next(errorHandler(400, 'Text and due date are required'));
@@ -11,6 +11,7 @@ export const createTask = async (req, res, next) => {
   const newTask = new Task({
     text,
     dueDate,
+    priority: priority || 'Not Urgent & Not Important', // Use provided priority or default
     user: req.user.id,
   });
 

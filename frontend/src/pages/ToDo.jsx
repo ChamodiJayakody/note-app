@@ -40,7 +40,7 @@ export default function ToDo() {
 
   const addTask = async () => {
     if (!newTask.trim() || !dueDate || !priority) return;
-
+  
     try {
       const response = await fetch('/api/task/create', {
         method: 'POST',
@@ -48,9 +48,9 @@ export default function ToDo() {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ text: newTask, dueDate, priority }),
+        body: JSON.stringify({ text: newTask, dueDate, priority }), // Ensure priority is included
       });
-
+  
       if (response.ok) {
         const task = await response.json();
         setTasks((prevTasks) => {
@@ -124,18 +124,22 @@ export default function ToDo() {
   };
 
   const getTaskColor = (task) => {
-    const today = new Date();
-    const dueDate = new Date(task.dueDate);
-
     if (task.completed) {
       return 'bg-green-200'; // Completed tasks
-    } else if (dueDate - today <= 2 * 24 * 60 * 60 * 1000 && dueDate >= today) {
-      // Tasks due within 2 days
-      return 'bg-red-200';
-    } else {
-      // Other tasks
-      const colors = ['bg-blue-200', 'bg-yellow-200', 'bg-purple-200'];
-      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  
+    // Assign colors based on priority
+    switch (task.priority) {
+      case 'Urgent & Important':
+        return 'bg-red-200';
+      case 'Urgent but Not Important':
+        return 'bg-yellow-200';
+      case 'Not Urgent but Important':
+        return 'bg-blue-200';
+      case 'Not Urgent & Not Important':
+        return 'bg-purple-200';
+      default:
+        return 'bg-gray-200'; // Fallback color
     }
   };
 
@@ -173,7 +177,7 @@ export default function ToDo() {
           Add Task
         </button>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {tasks.map((task) => (
           <TaskCard
             key={task._id}

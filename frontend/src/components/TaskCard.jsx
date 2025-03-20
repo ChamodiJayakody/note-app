@@ -6,8 +6,8 @@ const TaskCard = ({ title, date, priority, isCompleted, onEdit, onDelete, onTogg
     <div className={`p-4 rounded-lg shadow-md flex items-center justify-between ${color}`}>
       <div className="flex flex-col">
         <h2 className="text-lg font-semibold">{title}</h2>
-        <p className="text-sm text-gray-600">{date}</p>
-        <p className="text-sm text-gray-500">{priority}</p> {/* Display priority */}
+        <p className="text-sm text-gray-700 font-medium">{date}</p>
+        <p className="text-sm text-gray-600 ">{priority}</p> {/* Display priority */}
       </div>
       <div className="flex items-center space-x-4">
         <button
