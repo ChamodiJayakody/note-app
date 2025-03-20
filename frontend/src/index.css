@@ -31,6 +31,7 @@
     @apply w-full text-sm bg-teal-800 hover:bg-teal-600 cursor-pointer  text-gray-200 p-2 rounded-xl my-1;
   }
   
+  
 }
 [data-theme='dark'] {
   --tw-bg-opacity: 1;
