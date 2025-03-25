@@ -1,11 +1,21 @@
 import React from 'react';
 import { MdEdit, MdDelete, MdCheckCircle, MdRadioButtonUnchecked } from 'react-icons/md';
 
-const TaskCard = ({ title, date, priority, isCompleted, onEdit, onDelete, onToggleComplete, color }) => {
+const TaskCard = ({ title, date, priority, isCompleted, onEdit, onDelete, onToggleComplete, color, searchQuery }) => {
+  const highlightText = (text, query) => {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, (match) => `<span class="bg-yellow-200">${match}</span>`);
+  };
   return (
     <div className={`p-4 rounded-lg shadow-md flex items-center justify-between ${color}`}>
       <div className="flex flex-col">
-        <h2 className="text-lg font-semibold">{title}</h2>
+      <h2
+          className="text-lg font-semibold"
+          dangerouslySetInnerHTML={{
+            __html: highlightText(title, searchQuery),
+          }}
+        ></h2>
         <p className="text-sm text-gray-700 font-medium">{date}</p>
         <p className="text-sm text-gray-600 ">{priority}</p> {/* Display priority */}
       </div>

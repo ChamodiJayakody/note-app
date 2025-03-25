@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import NewNote from "../components/NewNote";
 import GetStarted from "./GetStarted";
 
+
+
 function Note() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [notes, setNotes] = useState([]);
@@ -26,7 +28,7 @@ function Note() {
     "bg-red-200",
     "bg-green-200",
     "bg-blue-200",
-    "bg-yellow-200",
+    "bg-yellow-100",
     "bg-purple-200",
   ];
 
@@ -59,6 +61,11 @@ function Note() {
       console.error("Error fetching notes:", error);
     }
   };
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleDeleteNote = async (noteid) => {
     try {
@@ -188,14 +195,13 @@ function Note() {
       {user ? (<div>
         <div>
           <SearchBar
-
             value={searchQuery}
-            onChange={({ target }) => setSearchQuery(target.value)}
-            handleSearch={handleSearch}
-            onClearSearch={onClearSearch}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            handleSearch={() => console.log("Search triggered")}
+            onClearSearch={() => setSearchQuery("")}
           />
           <div className="grid grid-cols-3 gap-4 mt-4">
-            {notes.map((note) => (
+            {filteredNotes.map((note) => (
               <NoteCard
                 key={note._id}
                 title={note.title}
@@ -208,6 +214,7 @@ function Note() {
                 onDelete={() => openDeleteModal(note._id)}
                 onPinNote={() => handlePinNote(note._id)}
                 color={getRandomColor()} // Pass the random color as a prop
+                searchQuery={searchQuery} 
               />
             ))}
           </div>
@@ -265,7 +272,7 @@ function Note() {
                 Yes
               </button>
               <button
-                className="bg-gray-300 text-black px-4 py-2 rounded"
+                className="bg-gray-300  text-black px-4 py-2 rounded"
                 onClick={() => setIsDeleteModalOpen(false)}
               >
                 No

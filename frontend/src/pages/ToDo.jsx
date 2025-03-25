@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TaskModal from '../components/TaskModal';
 import TaskCard from '../components/TaskCard';
+import SearchBar from '../components/SearchBar';
 
 export default function ToDo() {
   const [tasks, setTasks] = useState([]);
@@ -8,6 +9,7 @@ export default function ToDo() {
   const [dueDate, setDueDate] = useState('');
   const [priority, setPriority] = useState('Not Urgent & Not Important'); // Initialize priority state
   const [editTask, setEditTask] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchTasks();
@@ -37,6 +39,10 @@ export default function ToDo() {
       console.error('Error fetching tasks:', error);
     }
   };
+
+  const filteredTasks = tasks.filter((task) =>
+    task.text.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const addTask = async () => {
     if (!newTask.trim() || !dueDate || !priority) return;
@@ -133,7 +139,7 @@ export default function ToDo() {
       case 'Urgent & Important':
         return 'bg-red-200';
       case 'Urgent but Not Important':
-        return 'bg-yellow-200';
+        return 'bg-yellow-100';
       case 'Not Urgent but Important':
         return 'bg-blue-200';
       case 'Not Urgent & Not Important':
@@ -145,7 +151,9 @@ export default function ToDo() {
 
   return (
     <div className="container mx-auto p-4">
+      
       <h1 className="text-3xl font-semibold text-gray-800 mb-4">To-Do List</h1>
+      
       <div className="mb-4">
         <input
           type="text"
@@ -176,9 +184,18 @@ export default function ToDo() {
         >
           Add Task
         </button>
+
+        
       </div>
+      <div className='mb-4'><SearchBar
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        handleSearch={() => console.log("Search triggered")}
+        onClearSearch={() => setSearchQuery("")}
+      /></div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {tasks.map((task) => (
+        
+        {filteredTasks.map((task) => (
           <TaskCard
             key={task._id}
             title={task.text}
@@ -191,6 +208,7 @@ export default function ToDo() {
               updateTask({ ...task, completed: !task.completed })
             }
             color={getTaskColor(task)}
+            searchQuery={searchQuery}
           />
         ))}
       </div>
