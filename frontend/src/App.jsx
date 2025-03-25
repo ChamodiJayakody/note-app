@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import Notes from "./pages/Notes";
 import Footer from "./components/Footer";
 import SignUp from "./pages/SignUp";
@@ -31,39 +31,54 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar toggleSidebar={toggleSidebar} user={user} setUser={setUser} />
-      <div className="relative">
-  {user && (
-    <div
-      className={`fixed top-0 left-0 mt-20 transition-transform duration-300 ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
-      style={{ width: "250px" }}
-    >
-      <SideBar isOpen={isSidebarOpen} />
-    </div>
-  )}
-  <div
-    className={`flex-1 transition-all duration-300 ${
-      isSidebarOpen && user ? "ml-0" : "ml-0"
-    }`}
-  >
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/notes" element={<Notes />} />
-      <Route path="/note" element={<Note />} />
-      <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-      <Route path="/sign-out" element={<SignOut />} />
-      <Route path="/create-note" element={<CreateNote />} />
-      <Route path="/sidebar" element={<SideBar />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/get-started" element={<GetStarted />} />
-    </Routes>
-  </div>
-</div>
-      <Footer />
+      <AppContent
+        toggleSidebar={toggleSidebar}
+        isSidebarOpen={isSidebarOpen}
+        user={user}
+        setUser={setUser}
+      />
     </BrowserRouter>
+  );
+}
+
+function AppContent({ toggleSidebar, isSidebarOpen, user, setUser }) {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  return (
+    <>
+      <NavBar toggleSidebar={toggleSidebar} user={user} setUser={setUser} />
+      <div className="relative flex">
+        {user && (
+          <div
+            className={`fixed top-0 left-0 mt-20 transition-transform duration-300 ${
+              isSidebarOpen ? "w-[200px]" : "w-[80px]"
+            }`}
+          >
+            <SideBar isOpen={isSidebarOpen} />
+          </div>
+        )}
+        <div
+          className={`flex-1 transition-all duration-350 ${
+            isSidebarOpen && user && !isHomePage ? "ml-[200px]" : "ml-[80px]"
+          }`}
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/notes" element={<Notes />} />
+            <Route path="/note" element={<Note />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
+            <Route path="/sign-out" element={<SignOut />} />
+            <Route path="/create-note" element={<CreateNote />} />
+            <Route path="/sidebar" element={<SideBar />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/get-started" element={<GetStarted />} />
+          </Routes>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
