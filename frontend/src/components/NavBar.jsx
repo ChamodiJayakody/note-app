@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import img2 from "../assets/write.png";
 import Profile from "./Profile";
 import { useNavigate, useLocation } from "react-router-dom";
-import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
 const NavBar = ({ toggleSidebar, user, setUser }) => {
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,16 +23,6 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
     const isQueryMatch = query ? location.search === `?${query}` : true;
     return isPathMatch && isQueryMatch;
   };
-
-  const handleSearch = () => {
-    // Implement search functionality
-  };
-
-  const onClearSearch = () => {
-    setSearchQuery("");
-  };
-
-  
 
   return (
     <Navbar
@@ -82,14 +70,7 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
           Notes
         </Navbar.Link>
 
-        {user && (
-          <SearchBar
-            value={searchQuery}
-            onChange={({ target }) => setSearchQuery(target.value)}
-            handleSearch={handleSearch}
-            onClearSearch={onClearSearch}
-          />
-        )}
+       
 
         {!user && (
           <Navbar.Link as={Link} to="/sign-up" className="text-xl mt-1 ml-40 ">
