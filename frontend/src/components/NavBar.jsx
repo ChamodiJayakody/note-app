@@ -34,7 +34,7 @@ const NavBar = ({ toggleSidebar, user, setUser }) => {
       <div className="flex items-center">
         {user && (
           <button className="p-4 focus:outline-none" onClick={toggleSidebar}>
-            <FaBars className="text-gray-800" />
+            <FaBars className="text-gray-700 text-2xl" />
           </button>
         )}
         <Navbar.Brand as={Link} to="/">
