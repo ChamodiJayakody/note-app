@@ -57,10 +57,10 @@ export default function SignIn({ setUser }) {
 
 
   return (
-    <div className="min-h-screen flex mt-28 justify-center ">
+    <div className="min-h-screen flex mt-40 justify-center ">
       <div className=" w-3/12 my-3 relative ">
         <div>
-          <div className="bg-teal-400 bg-opacity-20 rounded-3xl shadow-2xl">
+          <div className="bg-teal-400 bg-opacity-10 backdrop-blur-md rounded-3xl hover:shadow-2xl">
             <h1 className="pt-3 text-2xl text-center text-gray-800 font-semibold ">
               Sign In
             </h1>
@@ -114,7 +114,7 @@ export default function SignIn({ setUser }) {
               </Label>
             </div>
 
-            <p className="text-sm text-center mb-4">
+            <p className="text-sm text-center pb-4">
               Not registered yet?{" "}
               <Link
                 to="/sign-up"

@@ -74,10 +74,10 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center mt-4">
+    <div className="min-h-screen flex justify-center mt-24">
       <div className="md:w-3/12 my-3 relative">
         <div>
-          <div className="bg-teal-400 bg-opacity-20 rounded-3xl shadow-2xl ">
+          <div className="bg-teal-400 bg-opacity-10 backdrop-blur-md rounded-3xl hover:shadow-2xl ">
             <h1 className="pt-3 text-2xl text-center text-gray-80 font-semibold">
               Sign Up
             </h1>

@@ -22,7 +22,7 @@ export default function Notes() {
   }, [location.search]);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen mt-20">
       <img
         src={bg}
         alt="Background Image"

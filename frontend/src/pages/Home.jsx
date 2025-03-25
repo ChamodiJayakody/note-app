@@ -20,7 +20,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center mt-4">
+    <div className="min-h-screen flex justify-center  mt-20">
       <div className="md:w-5/12 my-3 relative">
         <img
           src={img1}
@@ -44,7 +44,7 @@ export default function Home() {
               Keep your thoughts organized!
             </p>
             
-            <Button className="bg-pink-800 hover:bg-pink-500 text-2xl p-2 mt-10 ring-0 ring-transparent mx-auto"
+            <Button className="bg-pink-800 hover:bg-pink-500 text-2xl p-2 rounded-full mt-10 ring-0 ring-transparent mx-auto"
               onClick={handleGetStarted}>
               Get Started
             </Button>

@@ -14,7 +14,7 @@ export default function SideBar({ isOpen }) {
 
   return (
     <div
-      className={`transition-all duration-300 bg-white hover:shadow-2xl rounded-r-3xl mt-20 p-3 ${
+      className={`transition-all duration-300 bg-opacity-50 backdrop-blur-xl bg-gray-100 shadow-2xl rounded-r-3xl mt-20 p-3 ${
         isOpen ? "w-[200px]" : "w-[80px]"
       }`}
     >

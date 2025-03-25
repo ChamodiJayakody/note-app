@@ -154,24 +154,24 @@ export default function ToDo() {
       
       <h1 className="text-3xl font-semibold text-gray-800 mb-4">To-Do List</h1>
       
-      <div className="mb-4">
+      <div className="mb-4 flex flex-wrap gap-3 items-center">
         <input
           type="text"
           placeholder="New task"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="border p-2 mr-2 rounded"
+          className="px-4 py-2 text-gray-700 bg-white rounded-full border-none shadow-md outline-none w-full md:w-auto"
         />
         <input
           type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
-          className="border p-2 mr-2 rounded"
+          className="px-4 py-2 text-gray-700 bg-white rounded-full border-none shadow-md outline-none w-full md:w-auto"
         />
         <select
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
-          className="border p-2 mr-2 rounded"
+          className="px-4 py-2 text-gray-700 bg-white rounded-full border-none shadow-md outline-none w-full md:w-auto"
         >
           <option value="Urgent & Important">Urgent & Important</option>
           <option value="Urgent but Not Important">Urgent but Not Important</option>
@@ -180,7 +180,7 @@ export default function ToDo() {
         </select>
         <button
           onClick={addTask}
-          className="bg-teal-800 hover:bg-teal-600 text-white p-2 rounded"
+          className="px-6 py-2 text-white bg-teal-800 hover:bg-teal-600 rounded-full shadow-md outline-none transition-all w-full md:w-auto"
         >
           Add Task
         </button>

@@ -41,7 +41,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
   };
 
   return (
-    <div className="relative">
+    <div className="relative ">
       {showCloseButton && (
         <button
           className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-gray-100"
@@ -59,7 +59,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
           type="text"
           id="title"
           placeholder="Grocery shopping"
-          className="rounded-xl text-2xl text-gray-900 border-none ring-0"
+          className="w-full px-4 py-3 text-gray-900 bg-white focus:bg-white rounded-full border-none shadow-md outline-none"
           value={title}
           onChange={({ target }) => setTitle(target.value)}
         />
@@ -77,7 +77,7 @@ const NewNote = ({ noteData, type, onClose, onSubmit, showCloseButton = true }) 
           value={content}
           onChange={setContent}
           style={{ outline: "none" }}
-          className="text-2xl  text-gray-900 border-none bg-white rounded-2xl outline-none font-medium ring-0"
+          className="text-2xl  text-gray-900 border-none bg-white rounded-3xl outline-none font-medium ring-0"
         />
       </div>
 

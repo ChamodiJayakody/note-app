@@ -12,7 +12,7 @@ const Profile = () => {
     <div className="flex md:order-2 ">
       {user ? (
         <Dropdown
-          className="bg-gray-200 bg-opacity-50 rounded-xl shadow-2xl border-2 border-gray-200"
+          className="bg-gray-200 bg-opacity-50  rounded-xl shadow-2xl border-2 ring-0"
           arrowIcon={false}
           inline
           label={<Avatar alt="User settings" img={img5} rounded />}
@@ -35,7 +35,7 @@ const Profile = () => {
         </Dropdown>
       ) : (
         <Link to="/sign-in">
-          <button className="bg-pink-800 hover:bg-pink-500 text-xl p-2 text-white rounded-lg ring-0 ring-transparent">
+          <button className="bg-pink-800 hover:bg-pink-500 text-xl p-2 text-white rounded-full ring-0 ring-transparent">
             Sign in
           </button>
         </Link>

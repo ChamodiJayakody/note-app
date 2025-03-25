@@ -8,7 +8,7 @@ const SearchBar = ({ value, onChange, handleSearch, onClearSearch }) => {
       <input
         type="text"
         placeholder="Search..."
-        className="w-full h-10 text-sm py-[11px] rounded-lg border-none bg-white"
+        className="w-full h-10 text-sm py-[11px] rounded-full border-none bg-white"
         value={value}
         onChange={onChange} // Pass the updated query to the parent
       />
